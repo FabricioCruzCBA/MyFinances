@@ -1,0 +1,145 @@
+html{
+    --cor-primaria: #4D6473;
+    --cor-secundaria:#F25C84;
+    --cor-terciária: #F2F2F2;
+    --cor-quarta: #D6F299;
+    --cor-quinta:  #8596A6;
+}
+/*
+.sidebar-brand{
+    background-color: var(--cor-primaria) !important;
+}
+
+.sidebar-wrapper{
+    background-color: var(--cor-primaria) !important;
+}
+
+li .active{
+    background-color: var(--cor-secundaria) !important;
+    color: var(--cor-terciária) !important;
+    font-weight:bold
+
+}
+
+.fundoUser{
+    background-color: var(--cor-secundaria) !important;
+    color: var(--cor-terciária) !important;
+    font-weight:bold
+
+}
+
+*/
+
+li .active{
+    background-color: #0c66eb !important;
+
+}
+
+form p{
+    font-size: 13px;
+}
+
+.btn-receita{
+    background-color: #d4edda !important;
+}
+
+.btn-despesa{
+    background-color: #f8d7da !important;
+}
+
+#igmUserPerfil{
+    border-radius: 50% !important;
+}
+
+#editButton{
+    margin-left: 5px !important;
+}
+
+.profile-img-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    background-color: #f4f4f4; /* Adiciona um fundo padrão caso a imagem esteja ausente */
+}
+
+.profile-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantém o foco no centro da imagem e preenche o container */
+    border-radius: 50%;
+}
+
+/*estilo do calendario*/
+
+.calendar-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    width: 95%; /* Ajuste para meia tela */
+    }
+
+.calendar-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.fc .fc-daygrid-event {
+    background-color: #76818d !important;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.fc .fc-toolbar-title {
+    color: #007bff;
+}
+
+.fc-header-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+}
+
+.fc-toolbar-chunk:first-child,
+.fc-toolbar-chunk:last-child {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fc-toolbar-title {
+    margin-top: 10px; /* Espaço entre os botões e o título */
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.fc .fc-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.fc .fc-button:hover {
+    background-color: #0056b3;
+}
+
+.fc .fc-button-active {
+    background-color: #0056b3;
+}
+
+.calendar-wrapper {
+    overflow-x: auto; /* Permite rolar horizontalmente se necessário */
+}
+.fc table {
+    min-width: 400px; /* Define uma largura mínima para evitar que as colunas fiquem muito estreitas */
+}
