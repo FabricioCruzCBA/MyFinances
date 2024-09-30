@@ -109,11 +109,7 @@ class CategoriaController extends Controller
                     $categoria->NomeCategoria = $request->NomeCategoria;
                     $categoria->TipoCategoria = $request->TipoCategoria;
                     $categoria->IconeCategoria = $request->IconeCategoria;
-                    if($request->TipoCategoria == 'R'){
-                        $categoria->CategorizacaoCategoria = 'Receita - '.$request->CategorizacaoCategoria;
-                    }else{
-                        $categoria->CategorizacaoCategoria = 'Despesa - '.$request->CategorizacaoCategoria;
-                    }
+                    
                     if($categoria->save()){
                         return redirect('/categoria')->with('msg', 'Registro alterado com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
                     }else{
