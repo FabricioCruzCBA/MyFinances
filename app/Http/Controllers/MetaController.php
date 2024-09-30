@@ -14,7 +14,10 @@ class MetaController extends Controller
     public function index()
     {
         if(!empty(session('user'))){
-            $meta = meta::with('metaMovimentacao')->where('AtivoMeta','1')->where('familia_id',session('familia'))->get();
+            $meta = meta::with('metaMovimentacao')
+                            ->where('AtivoMeta','1')
+                            ->where('familia_id',session('familia'))
+                            ->get();
             return view('meta.index')->with('meta',$meta);
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');

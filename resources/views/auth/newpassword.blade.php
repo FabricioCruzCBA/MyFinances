@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>My Finances | Registro de usuário</title><!--begin::Primary Meta Tags-->
+    <title>My Finances | Nova senha</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE 4 | Register Page v2">
     <meta name="author" content="ColorlibHQ">
@@ -23,38 +23,37 @@
                     </h1>
                 </a> </div>
             <div class="card-body register-card-body">
-                <p class="register-box-msg">Cadastrar</p>
-                <form action="CadastroUsuario" method="post" id="newUser">
+                <p class="register-box-msg">Cadastrar nova senha</p>
+                <form action="/new-password" method="post" id="newUser">
                 @csrf
-                    <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="registerFullName" type="text" class="form-control" placeholder="" name="NomeUsuario"> <label for="registerFullName">Nome completo</label> </div>
-                        <div class="input-group-text"> <span class="bi bi-person"></span> </div> 
-                    </div>
-                    <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="registerEmail" type="email" class="form-control" placeholder="" name="EmailUsuario"> <label for="registerEmail">Email</label> </div>
-                        <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
-                    </div>
+                    <input type="hidden" name="token" id="token" value="{{$token}}">
+                    <input type="hidden" name="user" id="user" value="{{$user}}">
                     <div class="input-group mb-1">
                         <div class="form-floating"> 
-                            <input id="registerPassword" type="password" class="form-control" placeholder="" name="PasswordUsuario"> 
-                            <label for="registerPassword">Password</label> 
+                            <input id="password" type="password" class="form-control" placeholder="" name="password"> 
+                            <label for="password">Senha:</label> 
                         </div>
                         <div class="input-group-text"> <span class="bi bi-lock-fill"> </span> </div>
                     </div>
                     <p id="password-strength" style="color: red;"></p>
+                    <div class="input-group mb-1">
+                        <div class="form-floating"> 
+                            <input id="password2" type="password" class="form-control" placeholder="" name="password2"> 
+                            <label for="password2">Confirmar senha:</label> 
+                        </div>
+                        <div class="input-group-text"> <span class="bi bi-lock-fill"> </span> </div>
+                    </div>
+                    <p id="password-strength2" style="color: red;"></p>
                     <div class="row">
-                        <div class="col-8 d-inline-flex align-items-center">
-                            <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required> <label class="form-check-label" for="flexCheckDefault">
-                                    Eu li e aceito os termos de uso da aplicação <a href="#">terms</a> </label> </div>
-                        </div> <!-- /.col -->
-                        <div class="col-4">
                             <div class="d-grid gap-2"> <button type="submit" class="btn btn-primary">Cadastrar</button> </div>
                         </div> <!-- /.col -->
                     </div> <!--end::Row-->
                 </form>
+                <div class="form-group mb-3 ms-4">
                 <p class="mb-0"> <a href="/login" class="text-center">
                         Fazer login
                     </a> </p>
+                </div>
                 
         
             </div> <!-- /.register-card-body -->
@@ -81,49 +80,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     <script src="../js/adminlte.js"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
    
-    <script type="text/javascript">
-
-        
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Seleciona o formulário e o campo de senha
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('newUser');
-            const passwordInput = document.getElementById('registerPassword');
+            const passwordInput = document.getElementById('password');
+            const password2Input = document.getElementById('password2');
+            const passwordStrengthText = document.getElementById('password-strength');
+            const passwordMatchText = document.getElementById('password-strength2');
 
-            // Função de validação de senha forte
-            function isPasswordStrong(password) {
-                const minLength = 8;
-                const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-                return regex.test(password);
-            }
-
-            // Validação no evento de envio do formulário
-            form.addEventListener('submit', function(event) {
-                Swal.fire({
-                    title: "Aguarde!",
-                    html: "Estamos finalizando seu cadastro.",
-                    timer: 2000000,
-                    timerProgressBar: true,
-                    didOpen: () => {
-                        Swal.showLoading()
-                    }
-                    
-                });
-                const password = passwordInput.value;
-
-                // Verifica se a senha é forte
-                if (!isPasswordStrong(password)) {
-                    event.preventDefault(); // Impede o envio do formulário
-                    alert('A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.');
-                }
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const passwordInput = document.getElementById('registerPassword');
-            const strengthText = document.getElementById('password-strength');
-
+            // Função de validação de força da senha
             function checkPasswordStrength(password) {
                 const minLength = 8;
                 if (password.length < minLength) {
@@ -141,19 +106,50 @@
                 }
             }
 
-            passwordInput.addEventListener('input', function() {
+            // Verificar força da senha enquanto digita
+            passwordInput.addEventListener('input', function () {
                 const password = passwordInput.value;
                 const strengthMessage = checkPasswordStrength(password);
-                strengthText.textContent = strengthMessage;
+                passwordStrengthText.textContent = strengthMessage;
+                passwordStrengthText.style.color = strengthMessage === 'Senha forte' ? 'green' : 'red';
+            });
 
-                if (strengthMessage === 'Senha forte') {
-                    strengthText.style.color = 'green';
+            // Verificar se as senhas conferem enquanto digita
+            password2Input.addEventListener('input', function () {
+                const password = passwordInput.value;
+                const confirmPassword = password2Input.value;
+
+                if (confirmPassword === password) {
+                    passwordMatchText.textContent = 'Senhas conferem';
+                    passwordMatchText.style.color = 'green';
                 } else {
-                    strengthText.style.color = 'red';
+                    passwordMatchText.textContent = 'Senhas não conferem';
+                    passwordMatchText.style.color = 'red';
+                }
+            });
+
+            // Bloquear envio do formulário se as senhas não conferirem
+            form.addEventListener('submit', function (event) {
+                const password = passwordInput.value;
+                const confirmPassword = password2Input.value;
+
+                if (confirmPassword !== password) {
+                    event.preventDefault(); // Impede o envio do formulário
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'As senhas não conferem!',
+                    });
+                } else if (checkPasswordStrength(password) !== 'Senha forte') {
+                    event.preventDefault(); // Impede o envio do formulário se a senha não for forte
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Sua senha não é forte o suficiente!',
+                    });
                 }
             });
         });
-
     </script>
 
 

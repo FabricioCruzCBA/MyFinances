@@ -3,9 +3,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>MyFinances</title><!--begin::Primary Meta Tags-->
+    <title>Reset senha</title><!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="AdminLTE 4 | Login Page v2">
+    <meta name="title" content="AdminLTE 4 | Register Page v2">
     <meta name="author" content="ColorlibHQ">
     <meta name="description" content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS.">
     <meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard"><!--end::Primary Meta Tags--><!--begin::Fonts-->
@@ -15,56 +15,48 @@
     <link rel="stylesheet" href="../css/adminlte.css"><!--end::Required Plugin(AdminLTE)-->
 </head> <!--end::Head--> <!--begin::Body-->
 
-<body class="login-page bg-body-secondary">
-    <div class="login-box">
+<body class="register-page bg-body-secondary">
+    <div class="register-box"> <!-- /.register-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header"> <a href="#" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
                     <h1 class="mb-0"> <b>My</b>Finances
                     </h1>
                 </a> </div>
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">Área de login</p>
-                <form action="logar" method="post">
+            <div class="card-body register-card-body">
+                <p class="register-box-msg">Recuperar senha</p>
+                <form action="/resetsenha" method="post" id="newUser">
                 @csrf
-                    <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="loginEmail" name="email" type="email" class="form-control" value="" placeholder=""> <label for="loginEmail">Email</label> </div>
+                    
+                    <div class="input-group mb-3">
+                        <div class="form-floating"> <input id="registerEmail" type="email" class="form-control" placeholder="" name="EmailUsuario"> <label for="registerEmail">Email</label> </div>
                         <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
                     </div>
-                    <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="loginPassword" name="password" type="password" class="form-control" placeholder=""> <label for="loginPassword">Senha</label> </div>
-                        <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
-                    </div> <!--begin::Row-->
                     <div class="row">
-                        <div class="col-8 d-inline-flex align-items-center">
-                            <!--
-                            <div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> <label class="form-check-label" for="flexCheckDefault">
-                                    Remember Me
-                                </label> </div>
--->
-                        </div><!-- /.col -->
-                        <div class="col-4">
-                            <div class="d-grid gap-2"> <button type="submit" class="btn btn-primary">Entrar</button> </div>
+                        <div class="col-4 mb-3">
+                            <div class="d-grid gap-2"> <button type="submit" class="btn btn-primary">Reset</button> </div>
                         </div> <!-- /.col -->
                     </div> <!--end::Row-->
                 </form>
-               
-                <p class="mb-1"> <a href="/resetsenha">Esqueci minha senha</a> </p>
-                <p class="mb-0"> <a href="CadastroUsuario" class="text-center">
-                        Cadastrar
+                <p class="mb-0"> <a href="/login" class="text-center">
+                        Fazer login
                     </a> </p>
-            </div> <!-- /.login-card-body -->
+                
+        
+            </div> <!-- /.register-card-body -->
         </div>
-    </div> <!-- /.login-box --> <!--begin::Third Party Plugin(OverlayScrollbars)-->
 
 
 
-<input type="hidden" value="{{session('msg')}}" id='msg'>
-<input type="hidden" value="{{session('icon')}}" id='icon'>
-<input type="hidden" value="{{session('colorB')}}" id='colorB'>
-<input type="hidden" value="{{session('textB')}}" id='textB'>
-<input type="hidden" value="{{session('title')}}" id='title'>
+        
 
 
+    </div> <!-- /.register-box --> <!--begin::Third Party Plugin(OverlayScrollbars)-->
+
+    <input type="hidden" value="{{session('msg')}}" id='msg'>
+    <input type="hidden" value="{{session('icon')}}" id='icon'>
+    <input type="hidden" value="{{session('colorB')}}" id='colorB'>
+    <input type="hidden" value="{{session('textB')}}" id='textB'>
+    <input type="hidden" value="{{session('title')}}" id='title'>
 
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -73,7 +65,83 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     <script src="../js/adminlte.js"></script> <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
-    
+   
+    <script type="text/javascript">
+
+        
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleciona o formulário e o campo de senha
+            const form = document.getElementById('newUser');
+            const passwordInput = document.getElementById('registerPassword');
+
+            // Função de validação de senha forte
+            function isPasswordStrong(password) {
+                const minLength = 8;
+                const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                return regex.test(password);
+            }
+
+            // Validação no evento de envio do formulário
+            form.addEventListener('submit', function(event) {
+                Swal.fire({
+                    title: "Aguarde!",
+                    html: "Estamos finalizando sua solicitação.",
+                    timer: 2000000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                    
+                });
+                const password = passwordInput.value;
+
+                // Verifica se a senha é forte
+                if (!isPasswordStrong(password)) {
+                    event.preventDefault(); // Impede o envio do formulário
+                    alert('A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('registerPassword');
+            const strengthText = document.getElementById('password-strength');
+
+            function checkPasswordStrength(password) {
+                const minLength = 8;
+                if (password.length < minLength) {
+                    return 'Senha muito curta';
+                } else if (!/[A-Z]/.test(password)) {
+                    return 'Adicione uma letra maiúscula';
+                } else if (!/[a-z]/.test(password)) {
+                    return 'Adicione uma letra minúscula';
+                } else if (!/\d/.test(password)) {
+                    return 'Adicione um número';
+                } else if (!/[@$!%*?&]/.test(password)) {
+                    return 'Adicione um caractere especial';
+                } else {
+                    return 'Senha forte';
+                }
+            }
+
+            passwordInput.addEventListener('input', function() {
+                const password = passwordInput.value;
+                const strengthMessage = checkPasswordStrength(password);
+                strengthText.textContent = strengthMessage;
+
+                if (strengthMessage === 'Senha forte') {
+                    strengthText.style.color = 'green';
+                } else {
+                    strengthText.style.color = 'red';
+                }
+            });
+        });
+
+    </script>
+
+
     @if(session('msg'))
   <script type="text/javascript">
     //const ModalAviso =document.getElementById('exampleModal')
@@ -104,7 +172,6 @@
   
   @endphp
 @endif
-    
     
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";

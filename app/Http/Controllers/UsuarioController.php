@@ -11,6 +11,7 @@ use App\Models\banco;
 use App\Models\categoria;
 use App\Models\subcategoria;
 use App\Models\acessosusuario;
+use App\Models\tokenresetsenha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -56,7 +57,7 @@ class UsuarioController extends Controller
                         $banco->NomeBanco = 'Minha carteira';
                         if($banco->save()){
                             $mail = new Arr;
-                            $mail->url = config('app.url').':8000/verifica-mail/'.$token->TokenVerificacao;
+                            $mail->url = config('app.url').'/verifica-mail/'.$token->TokenVerificacao;
                             $mail->mail = $usuario->EmailUsuario;
                             $mail->name = $usuario->NomeUsuario;
                             $mail->empresa = 'My Finances';
@@ -259,6 +260,104 @@ class UsuarioController extends Controller
             }
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+        }
+    }
+
+    public function resetSenha()
+    {
+        return view('auth.reset');
+    }
+
+    public function enviarEmailSenha(Request $request)
+    {
+        $user = usuario::where('EmailUsuario', $request->EmailUsuario)->where('AtivoUsuario', '1')->first();
+        //echo($user);
+        //dd($user);
+        if(!empty($user)){
+            $token = new tokenresetsenha;
+
+            $token->usuario_id = $user->id;
+            $token->TokenReset = urlencode(Str::uuid());
+
+            if($token->save()){
+                $mail = new Arr;
+                $mail->url = config('app.url').'/reset-senha/'.$token->TokenReset;
+                $mail->mail = $user->EmailUsuario;
+                $mail->name = $user->NomeUsuario;
+                $mail->empresa = 'My Finances';
+                $mail->h1 =    "Recuperação de senha";
+                $mail->p="Olá ".$user->NomeUsuario."!";
+                $mail->body="Foi solicitado uma recuperação de senha para o seu usuário no aplicativo
+                My Finances. Caso essa solicitação não tenha sido feita por você ignore o e-mail pois seu cadastro
+                permanecerá sem alteração. Se foi sua solicitação click no botão para dar prosseguimento ao cadastro
+                de uma nova senha, esse e=mail tem validade de 1h.";
+                $mail->button = 'Recuperar senha';
+
+                $assunto = "Recuperação de senha";
+                        
+                if(Mail::send(new sendmail($mail, $assunto))){
+                    return redirect('/login')->with('msg', 'Enviamos um e-mail com as instruções para configurar uma nova senha, por favor verifique sua caixa de entrada. O e-mail também pode ser enviado automáticamente para o spam/lixo eletrônico.')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
+                }else{
+                    return redirect('/login')->with('msg', 'Tivemos um problema ao enviar o e-mail de recuperação de senha! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+                }
+            }else{
+                return redirect('/login')->with('msg', 'Tivemos um problema ao gerar o token! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+            }
+        }else{
+            return redirect('/login')->with('msg', 'Usuário não encontrado! Você pode cadastrar-se através do link de cadastro.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+        }
+    }
+
+    public function verificaToken($token)
+    {
+        $tk = tokenresetsenha::where('TokenReset', $token)->where('Verificado', '0')->first();
+        if(!empty($tk)){
+            $tokenCriadoEm = $tk->created_at; // A data de criação do token
+            $diferencaEmHoras = Carbon::now()->diffInHours($tokenCriadoEm);
+
+            if($diferencaEmHoras < 1){
+                return view('auth.newpassword')->with(['token'=>$tk->TokenReset, 'user'=>$tk->usuario_id]);
+            }else{
+                return redirect('/login')->with('msg', 'O token expirou, tente novamente.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+            }
+        }else{
+            return redirect('/login')->with('msg', 'Token não encontrado ou é inválido!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+        }
+    }
+
+    public function salvarSenha(Request $request)
+    {
+        $tk = tokenresetsenha::where('TokenReset', $request->token)->where('Verificado', '0')->where('usuario_id', $request->user)->first();
+        $user = usuario::find($request->user);
+        if(!empty($tk)){
+            $tokenCriadoEm = $tk->created_at; // A data de criação do token
+            $diferencaEmHoras = Carbon::now()->diffInHours($tokenCriadoEm);
+
+            if($diferencaEmHoras < 1){
+                $tk->Verificado = '1';
+                $tk->save();
+
+                $user->SenhaUsuario = Hash::make($request->password);
+
+                if($user->save()){
+                    $hist = new historicosenhausuario;
+
+                    $hist->usuario_id = $user->id;
+                    $hist->SenhaUsuario = $user->SenhaUsuario;
+
+                    if($hist->save()){
+                        return redirect('/login')->with('msg', 'Senha atualizada com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
+                    }else{
+                        return redirect('/login')->with('msg', 'Não conseguimos atualizar a senha! Tente novamente.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+                    }
+                }else{
+                    return redirect('/login')->with('msg', 'Não conseguimos atualizar a senha! Tente novamente.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+                }
+            }else{
+                return redirect('/login')->with('msg', 'O token expirou, tente novamente.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+            }
+        }else{
+            return redirect('/login')->with('msg', 'Token não encontrado ou é inválido!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
         }
     }
 }

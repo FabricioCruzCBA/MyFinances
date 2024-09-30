@@ -15,7 +15,10 @@ class CategoriaController extends Controller
     public function index()
     {
         if(!empty(session('user'))){
-            $categoria = categoria::with('categoriaSubcategoria')->where('familia_id',session('familia'))->where('AtivoCategoria', '1')->get();
+            $categoria = categoria::with('categoriaSubcategoria')
+                                    ->where('familia_id',session('familia'))
+                                    ->where('AtivoCategoria', '1')
+                                    ->get();
             
             return view('categoria.index')->with(['categoria' => $categoria]);
         }else{

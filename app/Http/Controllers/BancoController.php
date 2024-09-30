@@ -12,7 +12,10 @@ class BancoController extends Controller
     public function index()
     {
         if(!empty(session('user'))){
-            $banco = banco::with('bancoMov')->where('familia_id',session('familia'))->where('AtivoBanco','1')->get();
+            $banco = banco::with('bancoMov')
+                            ->where('familia_id',session('familia'))
+                            ->where('AtivoBanco','1')
+                            ->get();
             //echo($banco);
             return view('banco.index')->with('banco',$banco);
         }else{

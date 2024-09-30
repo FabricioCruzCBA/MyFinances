@@ -73,7 +73,10 @@ class MovimentacaofinanceiraController extends Controller
 
     public function getCategoria(Request $request)
     {
-        $cat = categoria::all()->where('TipoCategoria',$request->TipoMovimentacaoFinanc)->where('AtivoCategoria','1');
+        $cat = categoria::all()
+                        ->where('TipoCategoria',$request->TipoMovimentacaoFinanc)
+                        ->where('AtivoCategoria','1')
+                        ->where('familia_id', session('familia'));
         if(count($cat)>0){
             
             return response()->json($cat);

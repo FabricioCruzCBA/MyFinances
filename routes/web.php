@@ -25,30 +25,24 @@ Route::get('/home', [SistemaController::class, 'home']);
 route::get('/', [SistemaController::class, 'base']);
 route::post('/home/filter', [SistemaController::class, 'homeFilter']);
 
-//Login
+//rotas do sistema
 Route::get('/login', function(){
     return view('auth.login');
 });
-
-//logout
 route::get('sair', function(){
     session()->flush();
     return redirect('login');
 });
-
-//Cadastro de usuário
 route::get('CadastroUsuario', function(){
     return view('auth.registro');
 });
-
-//Armazenar usuário
 route::post('CadastroUsuario', [UsuarioController::class, 'store']);
-
-//Fazer login no sistema
 route::post('logar',[UsuarioController::class, 'login']);
-
-//Verificar e-mail
 route::get('/verifica-mail/{token}', [UsuarioController::class, 'validaMail']);
+route::get('/resetsenha', [UsuarioController::class, 'resetSenha']);
+route::post('/resetsenha', [UsuarioController::class, 'enviarEmailSenha']);
+route::get('/reset-senha/{token}', [UsuarioController::class, 'verificaToken']);
+route::post('/new-password', [UsuarioController::class, 'salvarSenha']);
 
 
 //Rotas dos bancos
@@ -147,18 +141,18 @@ route::post('meta/delete', [MetaController::class, 'delete']);
 
 
 //Rotas para movimentação financeira
-route::get('movimentacao', [MovimentacaofinanceiraController::class, 'index'])  ;
-route::get('movimentacao/cad', [MovimentacaofinanceiraController::class, 'create']);
-route::post('categorias/get', [MovimentacaofinanceiraController::class, 'getCategoria'])->name('categorias.get');
-route::post('movimentacao/cad', [MovimentacaofinanceiraController::class,'store']);
-route::get('movimentacao/{id}', [MovimentacaofinanceiraController::class, 'show']);
+route::get('/movimentacao', [MovimentacaofinanceiraController::class, 'index'])  ;
+route::get('/movimentacao/cad', [MovimentacaofinanceiraController::class, 'create']);
+route::post('/categorias/get', [MovimentacaofinanceiraController::class, 'getCategoria'])->name('categorias.get');
+route::post('/movimentacao/cad', [MovimentacaofinanceiraController::class,'store']);
+route::get('/movimentacao/{id}', [MovimentacaofinanceiraController::class, 'show']);
 route::post('/movimentacao/pesquisa', [MovimentacaofinanceiraController::class, 'pesquisar']);
-route::post('movimentacao/transferencia', [MovimentacaofinanceiraController::class, 'transferencia']);
-route::get('movimentacao/edit/{id}', [MovimentacaofinanceiraController::class, 'showEdit']);
-route::put('movimentacao/edit/{id}', [MovimentacaofinanceiraController::class, 'update']);
-route::get('movimentacao/delete/{id}', [MovimentacaofinanceiraController::class, 'showDelete']);
-route::post('movimentacao/delete', [MovimentacaofinanceiraController::class, 'delete']);
-route::post('movimentacao/baixa', [MovimentacaofinanceiraController::class, 'baixa']);
+route::post('/movimentacao/transferencia', [MovimentacaofinanceiraController::class, 'transferencia']);
+route::get('/movimentacao/edit/{id}', [MovimentacaofinanceiraController::class, 'showEdit']);
+route::put('/movimentacao/edit/{id}', [MovimentacaofinanceiraController::class, 'update']);
+route::get('/movimentacao/delete/{id}', [MovimentacaofinanceiraController::class, 'showDelete']);
+route::post('/movimentacao/delete', [MovimentacaofinanceiraController::class, 'delete']);
+route::post('/movimentacao/baixa', [MovimentacaofinanceiraController::class, 'baixa']);
 
 
 ///rotas de agenda
