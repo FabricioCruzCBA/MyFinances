@@ -63,7 +63,7 @@
                     <div class="mb-3">
                         <label for="CategoriaId" class="form-label">Selecione a categoria</label>
                         <select name="CategoriaId" id="CategoriaId" class="form-select" required>
-                            <option selected disabled value="">Escolha a Subcategoria...</option>
+                            <option selected disabled value="">Escolha a Categoria...</option>
                             @foreach($categoria->sortBy('NomeCategoria') as $dados)
                                 <option value="{{$dados->id}}">{{$dados->NomeCategoria}} - @if($dados->TipoCategoria == 'R') Receita @else Despesa @endif</option>
                             @endforeach
