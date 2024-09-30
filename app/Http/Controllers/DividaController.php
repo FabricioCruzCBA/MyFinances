@@ -102,7 +102,7 @@ class DividaController extends Controller
         if(!empty(session('user'))){
             $divida = divida::find($request->id);
 
-            if(!empty($divida) && $divida->AtivoDivida == '1'){
+            if($divida && $divida->AtivoDivida == '1'){
 
                 if($divida->familia_id == session('familia')){
                     $mov = new movimentacaodivida;
