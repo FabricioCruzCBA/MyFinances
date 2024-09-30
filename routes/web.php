@@ -116,9 +116,7 @@ route::get('/divida/edit/{id}', [DividaController::class, 'showEdit']);
 route::post('/divida/edit', [DividaController::class, 'atualizarRegistro']);
 route::get('/divida/delete/{id}', [DividaController::class, 'showDelete']);
 route::post('divida/delete', [DividaController::class, 'delete']);
-route::post('/divida/pqp/', function(Request $request){
-    echo($requet->id);
-});
+
 
 //Rotas para os investimentos...
 route::get('/investimento', [InvestimentoController::class, 'index']);
