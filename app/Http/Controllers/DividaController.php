@@ -103,30 +103,7 @@ class DividaController extends Controller
             $divida = divida::find($request->id);
             echo($request->id);
             dd($divida);
-            if($divida && $divida->AtivoDivida == '1'){
-
-                if($divida->familia_id == session('familia')){
-                    $mov = new movimentacaodivida;
-                    $mov->divida_id = $divida->id;
-                    $mov->familia_id = $divida->familia_id;
-                    $mov->categoria_id = $request->categoria_id;
-                    $mov->subcategoria_id = $request->subcategoria_id;
-                    $mov->TipoMovimentacaoDivida = $request->TipoMovimentacaoDivida;
-                    $mov->DataMovimentacaoDivida = $request->DataMovimentacaoDivida;
-                    $mov->ValorMovimentacaoDivida = Str::replace(['.'],'',$request->ValorMovimentacaoDivida);
-                    $mov->ObservacaoMovimentacaoDivida = $request->ObservacaoMovimentacaoDivida;
-
-                    if($mov->save()){
-                        return redirect('/divida/'.$divida->id)->with('msg', 'Dívida atualizada com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
-                    }else{
-                        return redirect('/divida/'.$divida->id)->with('msg', 'Não conseguimos atualizar a dívida! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
-                    }
-                }else{
-                    return redirect('/divida/'.$divida->id)->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
-                }
-            }else{
-                return redirect('/divida')->with('msg', 'Registro não encontrado!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
-            }
+            
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
         }
