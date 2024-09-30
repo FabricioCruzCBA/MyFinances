@@ -73,7 +73,7 @@
             </div>
             <div class="mb-3"> 
                 <label for="NomeSuCategoria" class="form-label">Nome da subcategoria</label> 
-                <input type="text" class="form-control" id="NomeSubCategoria" name="NomeSubCategoria" aria-describedby="Subcategoria">
+                <input type="text" class="form-control" id="NomeSubCategoria" name="NomeSubCategoria" aria-describedby="Subcategoria" required>
             </div>
             
             <div class="row col-2 mb-3">
@@ -157,7 +157,7 @@
                 // Previne o envio do formulário
                 event.preventDefault();
                 // Exibe a mensagem de alerta
-                alert('Você precisa selecionar um ícone antes de cadastrar a categoria.');
+                alert('Você precisa selecionar um ícone antes de cadastrar a subcategoria.');
             }
         });
     });
