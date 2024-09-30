@@ -29,15 +29,15 @@ route::post('/home/filter', [SistemaController::class, 'homeFilter']);
 Route::get('/login', function(){
     return view('auth.login');
 });
-route::get('sair', function(){
+route::get('/sair', function(){
     session()->flush();
     return redirect('login');
 });
-route::get('CadastroUsuario', function(){
+route::get('/CadastroUsuario', function(){
     return view('auth.registro');
 });
-route::post('CadastroUsuario', [UsuarioController::class, 'store']);
-route::post('logar',[UsuarioController::class, 'login']);
+route::post('/CadastroUsuario', [UsuarioController::class, 'store']);
+route::post('/logar',[UsuarioController::class, 'login']);
 route::get('/verifica-mail/{token}', [UsuarioController::class, 'validaMail']);
 route::get('/resetsenha', [UsuarioController::class, 'resetSenha']);
 route::post('/resetsenha', [UsuarioController::class, 'enviarEmailSenha']);
@@ -46,98 +46,98 @@ route::post('/new-password', [UsuarioController::class, 'salvarSenha']);
 
 
 //Rotas dos bancos
-route::get('bancos', [BancoController::class, 'index']);
-route::get('bancos/cad', function(){
+route::get('/bancos', [BancoController::class, 'index']);
+route::get('/bancos/cad', function(){
     return view('banco.create');
 });
-route::post('bancos/cad', [BancoController::class, 'store']);
-route::get('bancos/{id}', [BancoController::class,'show']);
-route::get('bancos/edit/{id}', [BancoController::class, 'showEdit']);
-route::put('bancos/update/{id}', [BancoController::class, 'update']);
-route::get('bancos/delete/{id}', [BancoController::class, 'showDelet']);
-route::post('bancos/delete', [BancoController::class, 'delete']);
+route::post('/bancos/cad', [BancoController::class, 'store']);
+route::get('/bancos/{id}', [BancoController::class,'show']);
+route::get('/bancos/edit/{id}', [BancoController::class, 'showEdit']);
+route::put('/bancos/update/{id}', [BancoController::class, 'update']);
+route::get('/bancos/delete/{id}', [BancoController::class, 'showDelet']);
+route::post('/bancos/delete', [BancoController::class, 'delete']);
 
 
 
 //Rotas dos cartões
-route::get('cartao', [CartaocreditoController::class, 'index']);
-route::get('cartao/cad', function(){
+route::get('/cartao', [CartaocreditoController::class, 'index']);
+route::get('/cartao/cad', function(){
     return view('cartao.create');
 });
-route::post('cartao/cad',[CartaocreditoController::class, 'store']);
-route::get('cartao/{id}', [CartaocreditoController::class, 'show']);
-route::get('cartao/edit/{id}', [CartaocreditoController::class, 'showEdit']);
-route::put('cartao/update/{id}', [CartaocreditoController::class, 'update']);
-route::get('cartao/delete/{id}', [CartaocreditoController::class, 'showDelet']);
-route::post('cartao/delete', [CartaocreditoController::class, 'delete']);
-route::get('cartao/item/{id}/{idCard}', [MovimentacaocartaoController::class, 'deleteItem']);
-route::post('cartao/fatura', [CartaocreditoController::class, 'closeFat']);
+route::post('/cartao/cad',[CartaocreditoController::class, 'store']);
+route::get('/cartao/{id}', [CartaocreditoController::class, 'show']);
+route::get('/cartao/edit/{id}', [CartaocreditoController::class, 'showEdit']);
+route::put('/cartao/update/{id}', [CartaocreditoController::class, 'update']);
+route::get('/cartao/delete/{id}', [CartaocreditoController::class, 'showDelet']);
+route::post('/cartao/delete', [CartaocreditoController::class, 'delete']);
+route::get('/cartao/item/{id}/{idCard}', [MovimentacaocartaoController::class, 'deleteItem']);
+route::post('/cartao/fatura', [CartaocreditoController::class, 'closeFat']);
 route::get('/cartao/fatura/delete/{id}', [CartaocreditoController::class, 'deleteFat']);
 
 //Rotas das categorias
-route::get('categoria', [CategoriaController::class, 'index']);
-route::get('categoria/cad', [CategoriaController::class, 'Insert']);
-route::post('categoria/cad', [CategoriaController::class, 'store']);
-route::get('categoria/{id}', [CategoriaController::class, 'show']);
-route::get('categoria/edit/{id}', [CategoriaController::class, 'showEdit']);
-route::put('categoria/update/{id}', [CategoriaController::class, 'update']);
-route::get('categoria/delete/{id}', [CategoriaController::class, 'showDelete']);
-route::post('categoria/delete', [CategoriaController::class, 'delete']);
+route::get('/categoria', [CategoriaController::class, 'index']);
+route::get('/categoria/cad', [CategoriaController::class, 'Insert']);
+route::post('/categoria/cad', [CategoriaController::class, 'store']);
+route::get('/categoria/{id}', [CategoriaController::class, 'show']);
+route::get('/categoria/edit/{id}', [CategoriaController::class, 'showEdit']);
+route::put('/categoria/update/{id}', [CategoriaController::class, 'update']);
+route::get('/categoria/delete/{id}', [CategoriaController::class, 'showDelete']);
+route::post('/categoria/delete', [CategoriaController::class, 'delete']);
 
 
 //Rotas das subcategorias
-route::get('subcategoria', [SubcategoriaController::class, 'index']);
-route::get('subcategoria/cad', [SubcategoriaController::class, 'insert']);
-route::post('subcategoria/cad', [SubcategoriaController::class, 'store']);
-route::get('subcategoria/{id}', [SubcategoriaController::class, 'show']);
-route::get('subcategoria/edit/{id}', [SubcategoriaController::class, 'showEdit']);
-route::put('subcategoria/update/{id}', [SubcategoriaController::class, 'update']);
-route::get('subcategoria/delete/{id}', [SubcategoriaController::class, 'showDelete']);
-route::post('subcategoria/delete', [SubcategoriaController::class, 'delete']);
+route::get('/subcategoria', [SubcategoriaController::class, 'index']);
+route::get('/subcategoria/cad', [SubcategoriaController::class, 'insert']);
+route::post('/subcategoria/cad', [SubcategoriaController::class, 'store']);
+route::get('/subcategoria/{id}', [SubcategoriaController::class, 'show']);
+route::get('/subcategoria/edit/{id}', [SubcategoriaController::class, 'showEdit']);
+route::put('/subcategoria/update/{id}', [SubcategoriaController::class, 'update']);
+route::get('/subcategoria/delete/{id}', [SubcategoriaController::class, 'showDelete']);
+route::post('/subcategoria/delete', [SubcategoriaController::class, 'delete']);
 
 //Rotas do perfil do usuário
-route::get('perfil',[UsuarioController::class, 'showPerfil']);
-route::put('perfil/update/{id}', [UsuarioController::class, 'update']);
+route::get('/perfil',[UsuarioController::class, 'showPerfil']);
+route::put('/perfil/update/{id}', [UsuarioController::class, 'update']);
 
 //Rotas para orçamento
-route::get('orcamento', [OrcamentoController::class, 'index']);
-route::get('orcamento/cad', [OrcamentoController::class, 'store']);
-route::get('orcamento/edit', [OrcamentoController::class, 'showEdit']);
-route::post('orcamento/salvar', [OrcamentoController::class, 'salvar']);
+route::get('/orcamento', [OrcamentoController::class, 'index']);
+route::get('/orcamento/cad', [OrcamentoController::class, 'store']);
+route::get('/orcamento/edit', [OrcamentoController::class, 'showEdit']);
+route::post('/orcamento/salvar', [OrcamentoController::class, 'salvar']);
 
 //dívidas
-route::get('divida', [DividaController::class, 'index']); 
-route::get('divida/cad', [DividaController::class, 'cadastrarView']);
-route::post('divida/cad', [DividaController::class, 'store']);
-route::post('subcategorias/get', [DividaController::class, 'getSubcategoria'])->name('subcategorias.get');
-route::get('divida/{id}', [DividaController::class, 'show']);
-route::post('divida/atualizar/', [DividaController::class, 'atualizar']);
-route::get('divida/edit/{id}', [DividaController::class, 'showEdit']);
+route::get('/divida', [DividaController::class, 'index']); 
+route::get('/divida/cad', [DividaController::class, 'cadastrarView']);
+route::post('/divida/cad', [DividaController::class, 'store']);
+route::post('/subcategorias/get', [DividaController::class, 'getSubcategoria'])->name('subcategorias.get');
+route::get('/divida/{id}', [DividaController::class, 'show']);
+route::post('/divida/atualizar/', [DividaController::class, 'atualizar']);
+route::get('/divida/edit/{id}', [DividaController::class, 'showEdit']);
 route::post('/divida/edit', [DividaController::class, 'atualizarRegistro']);
 route::get('/divida/delete/{id}', [DividaController::class, 'showDelete']);
 route::post('divida/delete', [DividaController::class, 'delete']);
 
 //Rotas para os investimentos...
-route::get('investimento', [InvestimentoController::class, 'index']);
-route::get('investimento/cad', [InvestimentoController::class, 'cadastrarView']);
-route::post('investimento/cad', [InvestimentoController::class, 'store']);
-route::get('investimento/{id}', [InvestimentoController::class, 'show']);
-route::post('investimento/atualizar', [InvestimentoController::class, 'atualizar']);
-route::get('investimento/edit/{id}', [InvestimentoController::class, 'showEdit']);
-route::post('investimento/edit', [InvestimentoController::class, 'update']);
-route::get('investimento/delete/{id}', [InvestimentoController::class, 'showDel']);
-route::post('investimento/delete', [InvestimentoController::class, 'delete']);
+route::get('/investimento', [InvestimentoController::class, 'index']);
+route::get('/investimento/cad', [InvestimentoController::class, 'cadastrarView']);
+route::post('/investimento/cad', [InvestimentoController::class, 'store']);
+route::get('/investimento/{id}', [InvestimentoController::class, 'show']);
+route::post('/investimento/atualizar', [InvestimentoController::class, 'atualizar']);
+route::get('/investimento/edit/{id}', [InvestimentoController::class, 'showEdit']);
+route::post('/investimento/edit', [InvestimentoController::class, 'update']);
+route::get('/investimento/delete/{id}', [InvestimentoController::class, 'showDel']);
+route::post('/investimento/delete', [InvestimentoController::class, 'delete']);
 
 //Rotas para as metas
-route::get('meta',[MetaController::class, 'index']);
-route::get('meta/cad', [MetaController::class, 'create']);
-route::post('meta/cad', [MetaController::class, 'store']);
-route::get('meta/{id}',[MetaController::class, 'show']);
-route::post('meta/atualizar', [MetaController::class,  'atualizar']);
-route::get('meta/edit/{id}', [MetaController::class, 'showEdit']);
-route::put('meta/update/{id}', [MetaController::class ,'update']);
-route::get('meta/delete/{id}', [MetaController::class,'showDelete']);
-route::post('meta/delete', [MetaController::class, 'delete']);
+route::get('/meta',[MetaController::class, 'index']);
+route::get('/meta/cad', [MetaController::class, 'create']);
+route::post('/meta/cad', [MetaController::class, 'store']);
+route::get('/meta/{id}',[MetaController::class, 'show']);
+route::post('/meta/atualizar', [MetaController::class,  'atualizar']);
+route::get('/meta/edit/{id}', [MetaController::class, 'showEdit']);
+route::put('/meta/update/{id}', [MetaController::class ,'update']);
+route::get('/meta/delete/{id}', [MetaController::class,'showDelete']);
+route::post('/meta/delete', [MetaController::class, 'delete']);
 
 
 //Rotas para movimentação financeira
@@ -156,9 +156,9 @@ route::post('/movimentacao/baixa', [MovimentacaofinanceiraController::class, 'ba
 
 
 ///rotas de agenda
-route::get('agenda', [AgendaController::class, 'index']);
-route::post('agenda/cad', [AgendaController::class, 'store']);
-route::get('agenda/event/{id}', [AgendaController::class, 'getEvent']);
+route::get('/agenda', [AgendaController::class, 'index']);
+route::post('/agenda/cad', [AgendaController::class, 'store']);
+route::get('/agenda/event/{id}', [AgendaController::class, 'getEvent']);
 route::post('/agenda/salvar', [AgendaController::class, 'atualizar']);
 route::post('/agenda/confirmar', [AgendaController::class, 'confirmar']);
 route::post('/agenda/excluir', [AgendaController::class, 'excluir']);
