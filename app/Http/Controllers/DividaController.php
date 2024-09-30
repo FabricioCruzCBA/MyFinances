@@ -125,7 +125,7 @@ class DividaController extends Controller
                     return redirect('/divida/'.$divida->id)->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
                 }
             }else{
-                return redirect('/divida')->with('msg', 'Registro não encontrado!'.$divida)->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
+                return redirect('/divida')->with('msg', 'Registro não encontrado!'.$divida.$request->all())->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
             }
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
