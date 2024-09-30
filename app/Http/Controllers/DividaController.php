@@ -137,6 +137,11 @@ class DividaController extends Controller
         echo('sera'.$request->id);
     }
 
+    public function novaRota(Request $request)
+    {
+        echo('rota ok'. $request->id);
+    }
+
     public function showEdit($id)
     {
         if(!empty(session('user'))){

@@ -116,6 +116,7 @@ route::get('/divida/edit/{id}', [DividaController::class, 'showEdit']);
 route::post('/divida/edit', [DividaController::class, 'atualizarRegistro']);
 route::get('/divida/delete/{id}', [DividaController::class, 'showDelete']);
 route::post('divida/delete', [DividaController::class, 'delete']);
+route::post('/nova-rota', [DividaController::class, 'novaRota']);
 
 
 //Rotas para os investimentos...
