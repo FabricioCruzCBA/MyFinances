@@ -111,7 +111,7 @@ route::get('/divida/cad', [DividaController::class, 'cadastrarView']);
 route::post('/divida/cad', [DividaController::class, 'store']);
 route::post('/subcategorias/get', [DividaController::class, 'getSubcategoria'])->name('subcategorias.get');
 route::get('/divida/{id}', [DividaController::class, 'show']);
-route::post('/divida/up-mov/', [DividaController::class, 'atualizar']);
+route::post('/divida/up-mov/', [DividaController::class, 'addMov']);
 route::get('/divida/edit/{id}', [DividaController::class, 'showEdit']);
 route::post('/divida/edit', [DividaController::class, 'atualizarRegistro']);
 route::get('/divida/delete/{id}', [DividaController::class, 'showDelete']);
