@@ -122,7 +122,7 @@
             <div class="card-footer"> 
                 <div class="row">
                     <div class="col-5 col-xl-3">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
                             <span class="icon bi bi-cloud-check"></span>
                             <span class="title">Cadastrar</span>
                         </button> 
@@ -146,8 +146,20 @@
 @section('Script')
 <script>
     $(function() {
-        //código a executar quando todos os elementos estão carregados
+        // Esconde o botão de pré-visualização inicialmente
         $('#btnPreview').hide();
+
+        // Adiciona um evento de clique ao botão de envio
+        $('#submitBtn').on('click', function(event) {
+            // Verifica se o ícone foi selecionado
+            var iconeSelecionado = $('#icone').val();
+            if (!iconeSelecionado) {
+                // Previne o envio do formulário
+                event.preventDefault();
+                // Exibe a mensagem de alerta
+                alert('Você precisa selecionar um ícone antes de cadastrar a categoria.');
+            }
+        });
     });
 </script>
 @endsection
