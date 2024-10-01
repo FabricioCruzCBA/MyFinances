@@ -341,7 +341,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Baixa financeira</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    <form action="movimentacao/baixa" method="post">
+    <form action="/movimentacao/baixa" method="post">
         <div class="modal-body">
             @csrf
             <input type="hidden" id="recipientId" name="id">
