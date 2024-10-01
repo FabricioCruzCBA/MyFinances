@@ -49,7 +49,7 @@
         <div class="card-body">
             <div class="mb-3"> 
                 <label for="NomeCategoria" class="form-label">Nome da categoria</label> 
-                <input type="text" class="form-control" id="NomeCategoria" name="NomeCategoria" aria-describedby="Categoria" value="{{$categoria->NomeCategoria}}">
+                <input type="text" class="form-control" id="NomeCategoria" name="NomeCategoria" aria-describedby="Categoria" value="{{$categoria->NomeCategoria}}" required>
             </div>
             <div class="row">
                 <div class="col-12">

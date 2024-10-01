@@ -27,16 +27,16 @@
                 <form action="CadastroUsuario" method="post" id="newUser">
                 @csrf
                     <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="registerFullName" type="text" class="form-control" placeholder="" name="NomeUsuario"> <label for="registerFullName">Nome completo</label> </div>
+                        <div class="form-floating"> <input id="registerFullName" type="text" class="form-control" placeholder="" name="NomeUsuario" required> <label for="registerFullName">Nome completo</label> </div>
                         <div class="input-group-text"> <span class="bi bi-person"></span> </div> 
                     </div>
                     <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="registerEmail" type="email" class="form-control" placeholder="" name="EmailUsuario"> <label for="registerEmail">Email</label> </div>
+                        <div class="form-floating"> <input id="registerEmail" type="email" class="form-control" placeholder="" name="EmailUsuario" required> <label for="registerEmail">Email</label> </div>
                         <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
                     </div>
                     <div class="input-group mb-1">
                         <div class="form-floating"> 
-                            <input id="registerPassword" type="password" class="form-control" placeholder="" name="PasswordUsuario"> 
+                            <input id="registerPassword" type="password" class="form-control" placeholder="" name="PasswordUsuario" required> 
                             <label for="registerPassword">Password</label> 
                         </div>
                         <div class="input-group-text"> <span class="bi bi-lock-fill"> </span> </div>

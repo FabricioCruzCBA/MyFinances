@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="form-group col-xl-6 col-md-6 mb-3">
                     <label for="TipoMovimentacaoFinanc" class="form-label">Tipo de transação:</label>
-                    <select name="TipoMovimentacaoFinanc" id="TipoMovimentacaoFinanc" class="form-select">
+                    <select name="TipoMovimentacaoFinanc" id="TipoMovimentacaoFinanc" class="form-select" required>
                         <option value="" disabled>Selecione o tipo de transação...</option>
                         <option value="D" @if($mov->TipoMovimentacaoFinanc == 'D') selected @endif >Despesa</option>
                         <option value="R" @if($mov->TipoMovimentacaoFinanc == 'R') selected @endif>Receita</option>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group col-xl-6 col-md-6 mb-3" id="banco">
                     <label for="banco_id" class="form-label">Banco:</label>
-                    <select name="banco_id" id="banco_id" class="form-select">
+                    <select name="banco_id" id="banco_id" class="form-select" required>
                         <option value="" selected disabled>Selecione o banco...</option>
                         @foreach($banco as $dados)
                             <option value="{{$dados->id}}" @if($mov->movBanco->id == $dados->id) selected @endif>{{$dados->NomeBanco}}</option>
@@ -75,13 +75,13 @@
             <div class="row">
                 <div class="form-group col-xl-6 col-md-6 mb-3">
                     <label for="categoria_id" class="form-label">Categoria:</label>
-                    <select name="categoria_id" id="categoria_id" class="form-select">
+                    <select name="categoria_id" id="categoria_id" class="form-select" required>
                         <option value="" disabled>Selecione a categoria...</option>
                     </select>
                 </div>
                 <div class="form-group col-xl-6 col-md-6 mb-3">
                     <label for="subcategoria_id" class="form-label">Subcategoria:</label>
-                    <select name="subcategoria_id" id="subcategoria_id" class="form-select">
+                    <select name="subcategoria_id" id="subcategoria_id" class="form-select" required>
                         <option value="" selected disabled>Selecione a subcategoria...</option>
                     </select>
                 </div>

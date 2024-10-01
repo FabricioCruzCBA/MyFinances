@@ -278,7 +278,7 @@
                     <div class="row">
                         <div class="form-group col-xl-6 col-md-6 mb-3">
                             <label for="categoria_id" class="form-label">Categoria:</label>
-                            <select name="categoria_id" id="categoria_id" class="form-select">
+                            <select name="categoria_id" id="categoria_id" class="form-select" required>
                                 <option value="" selected disabled>Selecione a categoria...</option>
                                 @foreach($categoria as $cat)
                                     <option value="{{$cat->id}}">{{$cat->NomeCategoria}}</option>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="form-group col-xl-6 col-md-6 mb-3">
                             <label for="subcategoria_id" class="form-label">Subcategoria:</label>
-                            <select name="subcategoria_id" id="subcategoria_id" class="form-select">
+                            <select name="subcategoria_id" id="subcategoria_id" class="form-select" required>
                                 <option value="" selected disabled>Selecione a subcategoria...</option>
                             </select>
                         </div>
@@ -347,7 +347,7 @@
                     <div class="row">
                         <div class="form-group col-12 mb-3">
                             <label for="banco_id" class="form-label">Banco:</label>
-                            <select name="banco_id" id="banco_id" class="form-select">
+                            <select name="banco_id" id="banco_id" class="form-select" required>
                                 <option value="" selected disabled>Selecione o banco...</option>
                                 @foreach($banco as $itens)
                                     <option value="{{$itens->id}}">{{$itens->NomeBanco}}</option>
@@ -358,7 +358,7 @@
                     <div class="row">
                         <div class="form-group col-xl-6 col-md-6 mb-3">
                             <label for="categoria_id2" class="form-label">Categoria:</label>
-                            <select name="categoria_id2" id="categoria_id2" class="form-select">
+                            <select name="categoria_id2" id="categoria_id2" class="form-select" required>
                                 <option value="" selected disabled>Selecione a categoria...</option>
                                 @foreach($categoria as $cat)
                                     <option value="{{$cat->id}}">{{$cat->NomeCategoria}}</option>
@@ -367,7 +367,7 @@
                         </div>
                         <div class="form-group col-xl-6 col-md-6 mb-3">
                             <label for="subcategoria_id2" class="form-label">Subcategoria:</label>
-                            <select name="subcategoria_id2" id="subcategoria_id2" class="form-select">
+                            <select name="subcategoria_id2" id="subcategoria_id2" class="form-select" required>
                                 <option value="" selected disabled>Selecione a subcategoria...</option>
                             </select>
                         </div>
@@ -375,7 +375,7 @@
                     <div class="row">
                         <div class="form-group col-6 mb-3">
                             <label for="mes" class="form-label">Mês da fatura</label>
-                            <select name="mes" id="mes" class="form-select">
+                            <select name="mes" id="mes" class="form-select" required>
                                 <option value="">Selecione o mês...</option>
                                 @for($i = 0; $i < 12; $i++)
                                     <option value="{{$i+1}}">{{$i+1}}</option>
@@ -384,7 +384,7 @@
                         </div>
                         <div class="form-group col-6 mb-3">
                             <label for="ano" class="form-label">Ano da fatura</label>
-                            <select name="ano" id="ano" class="form-select">
+                            <select name="ano" id="ano" class="form-select" required>
                                 <option value="">Selecione o mês...</option>
                                 @for($i = date('Y', strtotime(now())) - 3; $i < date('Y', strtotime(now())) + 2; $i++)
                                     <option value="{{$i+1}}">{{$i+1}}</option>

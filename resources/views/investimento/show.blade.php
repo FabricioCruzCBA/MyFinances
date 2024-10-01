@@ -236,7 +236,7 @@
             <div class="row">
                 <div class="form-group col-xl-6 col-md-6 mb-3">
                     <label for="categoria_id" class="form-label">Categoria:</label>
-                    <select name="categoria_id" id="categoria_id" class="form-select">
+                    <select name="categoria_id" id="categoria_id" class="form-select" required>
                         <option value="" selected disabled>Selecione a categoria...</option>
                         @foreach($categoria as $itens)
                             <option value="{{$itens->id}}">{{$itens->NomeCategoria}}</option>
@@ -245,7 +245,7 @@
                 </div>
                 <div class="form-group col-xl-6 col-md-6 mb-3">
                     <label for="subcategoria_id" class="form-label">Subcategoria:</label>
-                    <select name="subcategoria_id" id="subcategoria_id" class="form-select">
+                    <select name="subcategoria_id" id="subcategoria_id" class="form-select"  required>
                         <option value="" selected disabled>Selecione a Subcategoria...</option>
                     </select>
                 </div>

@@ -48,7 +48,7 @@
         <div class="card-body">
             <div class="mb-3"> 
                 <label for="NomeBanco" class="form-label">Nome do banco</label> 
-                <input type="text" class="form-control" id="NomeBanco" name="NomeBanco" aria-describedby="E-mail">
+                <input type="text" class="form-control" id="NomeBanco" name="NomeBanco" aria-describedby="E-mail" required>
             </div>
             
             

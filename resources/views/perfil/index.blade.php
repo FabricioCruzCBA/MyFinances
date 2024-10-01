@@ -56,17 +56,17 @@
                     @method('put')
                     <div class="mb-3">
                         <label for="NomeUsuario" class="form-label">Nome do usuário</label>
-                        <input type="text" class="form-control" name="NomeUsuario" id="NomeUsuario" value="{{$user->NomeUsuario}}">
+                        <input type="text" class="form-control" name="NomeUsuario" id="NomeUsuario" value="{{$user->NomeUsuario}}" required>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mb-3">
                                 <label for="EmailUsuario" class="form-label">E-mail do usuário</label>
-                                <input type="mail" class="form-control" id="EmailUsuario" name="EmailUsuario" value="{{$user->EmailUsuario}}">
+                                <input type="mail" class="form-control" id="EmailUsuario" name="EmailUsuario" value="{{$user->EmailUsuario}}" required>
                             </div>
                             <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
                                 <label for="SenhaUsuario" class="form-label">Senha do usuário</label>
-                                <input type="password" class="form-control" id="SenhaUsuario" name="SenhaUsuario">
+                                <input type="password" class="form-control" id="SenhaUsuario" name="SenhaUsuario" required>
                             </div>
                         </div>
                     </div>

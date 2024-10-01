@@ -28,7 +28,7 @@
                 @csrf
                     
                     <div class="input-group mb-3">
-                        <div class="form-floating"> <input id="registerEmail" type="email" class="form-control" placeholder="" name="EmailUsuario"> <label for="registerEmail">Email</label> </div>
+                        <div class="form-floating"> <input id="registerEmail" type="email" class="form-control" placeholder="" name="EmailUsuario" required> <label for="registerEmail">Email</label> </div>
                         <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
                     </div>
                     <div class="row">

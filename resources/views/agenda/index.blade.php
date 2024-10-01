@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="form-group col-xl-6 col-md-6 col-sm-12 mb-3">
                             <label for="dataStart" class="form-label">inicio:</label>
-                            <input type="datetime-local" name="dataStart" id="dataStart" class="form-control">
+                            <input type="datetime-local" name="dataStart" id="dataStart" class="form-control" required>
                         </div>
                         <div class="form-group col-xl-6 col-md-6 col-sm-12 mb-3">
                             <label for="dataEnd" class="form-label">Fim:</label>
@@ -154,7 +154,7 @@
                     <div class="row">
                         <div class="form-group col-xl-6 col-md-6 col-sm-12 mb-3">
                             <label for="dataStart2" class="form-label">inicio:</label>
-                            <input type="datetime-local" name="dataStart2" id="dataStart2" class="form-control">
+                            <input type="datetime-local" name="dataStart2" id="dataStart2" class="form-control" required>
                         </div>
                         <div class="form-group col-xl-6 col-md-6 col-sm-12 mb-3">
                             <label for="dataEnd2" class="form-label">Fim:</label>

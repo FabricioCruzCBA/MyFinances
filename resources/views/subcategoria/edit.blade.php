@@ -74,7 +74,7 @@
             </div>
             <div class="mb-3"> 
                 <label for="NomeSuCategoria" class="form-label">Nome da subcategoria</label> 
-                <input type="text" value="{{$dado->NomeSubCategoria}}" class="form-control" id="NomeSubCategoria" name="NomeSubCategoria" aria-describedby="Subcategoria">
+                <input type="text" value="{{$dado->NomeSubCategoria}}" class="form-control" id="NomeSubCategoria" name="NomeSubCategoria" aria-describedby="Subcategoria" required>
             </div>
             
             <div class="row col-2 mb-3">

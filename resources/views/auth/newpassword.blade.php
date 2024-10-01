@@ -30,7 +30,7 @@
                     <input type="hidden" name="user" id="user" value="{{$user}}">
                     <div class="input-group mb-1">
                         <div class="form-floating"> 
-                            <input id="password" type="password" class="form-control" placeholder="" name="password"> 
+                            <input id="password" type="password" class="form-control" placeholder="" name="password" required> 
                             <label for="password">Senha:</label> 
                         </div>
                         <div class="input-group-text"> <span class="bi bi-lock-fill"> </span> </div>
@@ -38,7 +38,7 @@
                     <p id="password-strength" style="color: red;"></p>
                     <div class="input-group mb-1">
                         <div class="form-floating"> 
-                            <input id="password2" type="password" class="form-control" placeholder="" name="password2"> 
+                            <input id="password2" type="password" class="form-control" placeholder="" name="password2" required> 
                             <label for="password2">Confirmar senha:</label> 
                         </div>
                         <div class="input-group-text"> <span class="bi bi-lock-fill"> </span> </div>

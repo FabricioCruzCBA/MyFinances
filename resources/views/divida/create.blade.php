@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="form-group col-xl-12 col-md-12 mb-3">
                     <label for="NomeDivida" class="form-label">Descrição:</label>
-                    <input type="text" name="NomeDivida" id="NomeDivida" class="form-control">
+                    <input type="text" name="NomeDivida" id="NomeDivida" class="form-control" required>
                 </div>
                 
             </div>
@@ -60,13 +60,13 @@
                     <label for="ValorInicialDivida" class="form-label">Valor inicial:</label>
                     <div class="input-group">
                         <span class="input-group-text">R$</span>
-                        <input type="text" name="ValorInicialDivida" id="ValorInicialDivida" class="form-control Numero">
+                        <input type="text" name="ValorInicialDivida" id="ValorInicialDivida" class="form-control Numero" required>
                         <span class="input-group-text">,00</span>
                     </div>
                 </div>
                 <div class="form-group col-xl-6 col-md-6 mb-3">
                     <label for="PrioridadeDivida" class="form-label">Prioridade:</label>
-                    <select name="PrioridadeDivida" id="PrioridadeDivida" class="form-select">
+                    <select name="PrioridadeDivida" id="PrioridadeDivida" class="form-select" required>
                         <option value="" selected disabled>Selecione a prioridade...</option>
                         <option value="Baixa">Baixa</option>
                         <option value="Média">Média</option>

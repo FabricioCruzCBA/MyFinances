@@ -27,11 +27,11 @@
                 <form action="logar" method="post">
                 @csrf
                     <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="loginEmail" name="email" type="email" class="form-control" value="" placeholder=""> <label for="loginEmail">Email</label> </div>
+                        <div class="form-floating"> <input id="loginEmail" name="email" type="email" class="form-control" value="" placeholder="" required> <label for="loginEmail">Email</label> </div>
                         <div class="input-group-text"> <span class="bi bi-envelope"></span> </div>
                     </div>
                     <div class="input-group mb-1">
-                        <div class="form-floating"> <input id="loginPassword" name="password" type="password" class="form-control" placeholder=""> <label for="loginPassword">Senha</label> </div>
+                        <div class="form-floating"> <input id="loginPassword" name="password" type="password" class="form-control" placeholder="" required> <label for="loginPassword">Senha</label> </div>
                         <div class="input-group-text"> <span class="bi bi-lock-fill"></span> </div>
                     </div> <!--begin::Row-->
                     <div class="row">

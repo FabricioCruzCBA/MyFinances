@@ -47,7 +47,7 @@
         <div class="card-body">
             <div class="mb-3"> 
                 <label for="NomeCartao" class="form-label">Nome do cartão</label> 
-                <input type="text" class="form-control" id="NomeCartao" value="{{$cartao->NomeCartao}}" name="NomeCartao" aria-describedby="Cartão">
+                <input type="text" class="form-control" id="NomeCartao" value="{{$cartao->NomeCartao}}" name="NomeCartao" aria-describedby="Cartão" required>
             </div>
             <div class="row">
                 <div class="col-6">
