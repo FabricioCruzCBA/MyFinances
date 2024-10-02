@@ -108,6 +108,11 @@ class MetaController extends Controller
         }
     }
 
+    public function upMovMeta(Request $request)
+    {
+        echo('deu bom'.$request->id);
+    }
+
     public function showEdit($id)
     {
         if(!empty(session('user'))){

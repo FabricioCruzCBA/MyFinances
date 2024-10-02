@@ -140,7 +140,7 @@ route::get('/meta/edit/{id}', [MetaController::class, 'showEdit']);
 route::put('/meta/update/{id}', [MetaController::class ,'update']);
 route::get('/meta/delete/{id}', [MetaController::class,'showDelete']);
 route::post('/meta/delete', [MetaController::class, 'delete']);
-
+route::post('/meta/up-mov', [MetaController::class, 'upMovMeta']);
 
 //Rotas para movimentação financeira
 route::get('/movimentacao', [MovimentacaofinanceiraController::class, 'index'])  ;

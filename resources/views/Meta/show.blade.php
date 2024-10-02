@@ -235,7 +235,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/meta/atualizar/" method="post">
+        <form action="/meta/up-mov" method="post">
             <input type="hidden" name="id" value="{{$meta->id}}">
             @csrf
             <p class="callout callout-warning">Os dados inseridos por essa janela não geram movimentações financeiras entre as contas.<br> Usar apenas para ajuste da dívida como aumento de juros ou diminuição do valor em negociação.</p>
