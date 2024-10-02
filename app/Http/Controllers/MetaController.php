@@ -73,7 +73,9 @@ class MetaController extends Controller
         }
     }
 
-    public function atualizar(Request $request)
+    
+
+    public function upMovMeta(Request $request)
     {
         if(!empty(session('user'))){
             $meta = meta::with('metaMovimentacao')->where('id', $request->id)->get()->first();
@@ -106,11 +108,6 @@ class MetaController extends Controller
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
         }
-    }
-
-    public function upMovMeta(Request $request)
-    {
-        echo('deu bom'.$request->id);
     }
 
     public function showEdit($id)
