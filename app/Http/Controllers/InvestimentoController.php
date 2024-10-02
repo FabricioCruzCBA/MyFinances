@@ -75,7 +75,9 @@ class InvestimentoController extends Controller
         }
     }
 
-    public function atualizar(Request $request)
+    
+
+    public function novaUpMov(Request $request) 
     {
         if(!empty(session('user'))){
             $inv = investimento::find($request->id);
@@ -107,11 +109,6 @@ class InvestimentoController extends Controller
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
         }
-    }
-
-    public function novaUpMov(Request $request) 
-    {
-       echo('deu bom'.$request->id); 
     }
 
     public function showEdit($id)
