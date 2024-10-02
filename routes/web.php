@@ -128,6 +128,7 @@ route::get('/investimento/edit/{id}', [InvestimentoController::class, 'showEdit'
 route::post('/investimento/edit', [InvestimentoController::class, 'update']);
 route::get('/investimento/delete/{id}', [InvestimentoController::class, 'showDel']);
 route::post('/investimento/delete', [InvestimentoController::class, 'delete']);
+route::post('/investimento/up-mov', [InvestimentoController::class, 'novaUpMov']);
 
 //Rotas para as metas
 route::get('/meta',[MetaController::class, 'index']);
@@ -154,6 +155,7 @@ route::put('/movimentacao/edit/{id}', [MovimentacaofinanceiraController::class, 
 route::get('/movimentacao/delete/{id}', [MovimentacaofinanceiraController::class, 'showDelete']);
 route::post('/movimentacao/delete', [MovimentacaofinanceiraController::class, 'delete']);
 route::post('/movimentacao/baixa', [MovimentacaofinanceiraController::class, 'baixa']);
+
 
 
 ///rotas de agenda

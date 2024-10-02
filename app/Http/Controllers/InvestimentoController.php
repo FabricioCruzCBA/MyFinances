@@ -109,6 +109,11 @@ class InvestimentoController extends Controller
         }
     }
 
+    public function novaUpMov(Request $request) 
+    {
+       echo('deu bom'.$request->id); 
+    }
+
     public function showEdit($id)
     {
         if(!empty(session('user'))){
