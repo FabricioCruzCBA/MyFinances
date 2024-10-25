@@ -45,7 +45,7 @@ class MovimentacaofinanceiraController extends Controller
                                         all()
                                         ->where('familia_id', session('familia'))
                                         ->where('AtivoSubCategoria', '1');
-            $banco = banco::
+            $banco = banco:: 
                             all()
                             ->where('familia_id', session('familia'))
                             ->where('AtivoBanco','1');

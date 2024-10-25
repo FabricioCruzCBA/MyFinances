@@ -149,11 +149,6 @@
                                     </a> 
                                 </li>
 
-                                <li class="nav-item"> <a href="/subcategoria" class="nav-link @yield('Subcategoria')"> <i class="nav-icon bi bi-columns"></i>
-                                        <p>Subcategorias</p>
-                                    </a> 
-                                </li>
-
                                 <li class="nav-item"> <a href="/orcamento" class="nav-link @yield('Orcamento')"> <i class="nav-icon bi bi-card-checklist"></i>
                                         <p>Orçamento</p>
                                     </a> 

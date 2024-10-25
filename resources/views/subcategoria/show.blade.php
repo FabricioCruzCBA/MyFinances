@@ -76,7 +76,7 @@
                         </button> 
                     </div>
                     <div class="col-5 offset-2 col-xl-3 offset-xl-6">
-                        <button class="btn btn-danger" type="button"  onclick="location.href = '/subcategoria';">
+                        <button class="btn btn-danger" type="button"  onclick="location.href = '/categoria/{{$dados->categoria_id}}';">
                             <span class="icon bi bi-ban"></span>
                             <span class="title">Cancelar</span>
                         </button>

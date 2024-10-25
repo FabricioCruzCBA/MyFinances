@@ -23,12 +23,12 @@ class SubcategoriaController extends Controller
         }
     }
 
-    public function insert()
+    public function insert($id)
     {
         if(!empty(session('user'))){
             $icones = icone::all();
             $categoria = categoria::all()->where('familia_id', session('familia'))->where('AtivoCategoria','1');
-            return view('subcategoria.create')->with(['icone' => $icones, 'categoria' => $categoria]);
+            return view('subcategoria.create')->with(['icone' => $icones, 'categoria' => $categoria, 'id' => $id]);
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
         }
@@ -37,12 +37,12 @@ class SubcategoriaController extends Controller
     public function store(Request $request)
     {
         if(!empty(session('user'))){
-            $cat = categoria::find($request->CategoriaId);
+            $cat = categoria::find($request->id);
            
 
             $sub = new subcategoria;
             $sub->familia_id = session('familia');
-            $sub->categoria_id = $request->CategoriaId;
+            $sub->categoria_id = $request->id;
             $sub->NomeSubCategoria=$request->NomeSubCategoria;
             $sub->IconeSubCategoria = $request->IconeCategoria;
 
@@ -55,9 +55,9 @@ class SubcategoriaController extends Controller
             }
 
             if($sub->save()){
-                return redirect('/subcategoria')->with('msg', 'Subcategoria cadastrada com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
+                return redirect('/categoria/'.$request->id)->with('msg', 'Subcategoria cadastrada com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
             }else{
-                return redirect('/subcategoria')->with('msg', 'Não foi possivel cadastrar a subcategoria! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');    
+                return redirect('/categoria/'.$request->id)->with('msg', 'Não foi possivel cadastrar a subcategoria! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');    
             }
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
@@ -123,15 +123,15 @@ class SubcategoriaController extends Controller
                         $sub->CategorizacaoSubCategoria = 'Transferência - '.$request->Tipo;
                     }
                     if($sub->save()){
-                        return redirect('/subcategoria')->with('msg', 'Registro atualizado com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
+                        return redirect('/categoria/'.$cat->id)->with('msg', 'Registro atualizado com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
                     }else{
-                        return redirect('/subcategoria')->with('msg', 'Não conseguimos atualizar o registro! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
+                        return redirect('/categoria/'.$cat->id)->with('msg', 'Não conseguimos atualizar o registro! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
                     }
                 }else{
-                    return redirect('/subcategoria')->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
+                    return redirect('/categoria/'.$cat->id)->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
                 }
             }else{
-                return redirect('/subcategoria')->with('msg', 'Registro não encontrado!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');    
+                return redirect('/categoria/'.$cat->id)->with('msg', 'Registro não encontrado!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');    
             }
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
@@ -170,16 +170,16 @@ class SubcategoriaController extends Controller
                     $sub->AtivoSubCategoria = '0';
 
                     if($sub->save()){
-                        return redirect('/subcategoria')->with('msg', 'Registro excluído com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
+                        return redirect('/categoria/'.$sub->categoria_id)->with('msg', 'Registro excluído com sucesso!')->with('icon', 'success')->with('textB', 'Ok')->with('colorB', '#28a745')->with('title', 'Sucesso!');
                     }else{
-                        return redirect('/subcategoria')->with('msg', 'Não coonseguimos excluir o registro! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
+                        return redirect('/categoria/'.$sub->categoria_id)->with('msg', 'Não coonseguimos excluir o registro! Tente novamente mais tarde.')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
                     }
                 }else{
-                    return redirect('/subcategoria')->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
+                    return redirect('/categoria/'.$sub->categoria_id)->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
                 }
             }else{
                 
-                return redirect('/subcategoria')->with('msg', 'Registro não encontrado!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');    
+                return redirect('/categoria/'.$sub->categoria_id)->with('msg', 'Registro não encontrado!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');    
             }
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');

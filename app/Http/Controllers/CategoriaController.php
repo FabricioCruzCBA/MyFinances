@@ -63,11 +63,13 @@ class CategoriaController extends Controller
     public function  show($id)
     {
         if(!empty(session('user'))){
-            $categoria = categoria::find($id);
-
+            $categoria = categoria::with(['categoriaSubcategoria' => function ($query){$query->where('AtivoSubCategoria', '1');}])->where('id',$id)->get()->first();
+            //echo($categoria);
+            //echo($categoria->categoriaSubcategoria);
+            //dd($categoria);
             if(!empty($categoria) && $categoria->AtivoCategoria == '1'){
                 if($categoria->familia_id == session('familia')){
-                    return view('categoria.show')->with('categoria', $categoria);
+                    return view('subcategoria.index')->with('categoria', $categoria);
                 }else{
                     return redirect('/categoria')->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
                 }

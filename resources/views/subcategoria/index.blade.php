@@ -1,12 +1,14 @@
 @extends('Tamplate.Tamplate')
 
-@section('Title','Subcategoria')
+@section('Title','Categoria')
 
 @section('logo', '\imgsystem\logo.png')
 
 @section('cssAdmin','\css\adminlte.css')
 
-@section('TitlePage', 'Subcategorias')
+@section('TitlePage')
+Categoria: {{$categoria->NomeCategoria}} - Tipo: @if($categoria->TipoCategoria == 'T') Transferência @elseif($categoria->TipoCategoria == 'R') Receita @else Despesa @endif
+@endsection
 
 @section('jsAdmin', '\js\adminlte.js')
 
@@ -26,16 +28,16 @@
 @section('Cad', ' active')
 @section('Banco', ' ')
 @section('Cartao', ' ')
-@section('Categoria', ' ')
-@section('Subcategoria', ' active')
+@section('Categoria', ' active')
+@section('Subcategoria', ' ')
 
 @section('meuCss', '\css\meucss.css')
 
 @section('btn')
-<a href="subcategoria/cad">
+<a href="/subcategoria/cad/{{$categoria->id}}">
     <button class="btn btn-primary">
         <span class="icon bi bi-plus-circle"></span>
-        <span class="title">Cadastrar</span>
+        <span class="title">Cadastrar subcategoria</span>
     </button>
 </a>
 @endsection
@@ -64,8 +66,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(!empty($sub))
-                        @foreach($sub as $Dados)
+                        @if(!empty($categoria->categoriaSubcategoria))
+                        @foreach($categoria->categoriaSubcategoria as $Dados)
                             
                             <tr class="align-middle">
                                 <td>{{$Dados->id}}.</td>

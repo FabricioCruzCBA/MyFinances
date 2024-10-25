@@ -46,6 +46,7 @@
     </div> <!--end::Header--> <!--begin::Form-->
     <form action="/subcategoria/cad" method="post"> <!--begin::Body-->
         @csrf
+        <input type="hidden" name="id" value="{{$id}}">
         <div class="card-body">
         <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6">
@@ -56,17 +57,6 @@
                             <option value="Fixa">Fixa</option>
                             <option value="Extra">Extra</option>
                             <option value="Variável">Variável</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6">
-                    <div class="mb-3">
-                        <label for="CategoriaId" class="form-label">Selecione a categoria</label>
-                        <select name="CategoriaId" id="CategoriaId" class="form-select" required>
-                            <option selected disabled value="">Escolha a Categoria...</option>
-                            @foreach($categoria->sortBy('NomeCategoria') as $dados)
-                                <option value="{{$dados->id}}">{{$dados->NomeCategoria}} - @if($dados->TipoCategoria == 'R') Receita @else Despesa @endif</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>

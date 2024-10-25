@@ -164,6 +164,23 @@
         <h3 class="card-title">Movimentações financeiras</h3>
     </div> <!-- /.card-header -->
         <div class="card-body p-0">
+
+            <!-- Legenda dos status -->
+            <div class="mb-3 ms-3">
+                <strong>Legenda dos Status:</strong>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <i class="bi bi-check-circle-fill text-success"></i> Pago
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="bi bi-exclamation-circle-fill text-danger"></i> Atrasado
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="bi bi-dash-circle-fill text-primary"></i> Previsto
+                    </li>
+                </ul>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-striped table-hover" id="tableContent">
                     <thead>
@@ -174,7 +191,9 @@
                             <th>Categoria</th>
                             <th>Subcategoria</th>
                             <th>Banco</th>
-                            <th>Valor (R$)</th>
+                            <th>Valor orig.(R$)</th>
+                            <th>Valor pg.(R$)</th>
+                            <th>Dif. valor(R$)</th>
                             <th>Obs.</th>
                             <th>Ação</th>
                         </tr>
@@ -220,7 +239,9 @@
                                         </div>
                                     </td>
                                     <td>{{$dados->movBanco->NomeBanco}}</td>
-                                    <td>{{number_format($dados->ValorFimMovimentacaoFinanc,2,',','.')}}</td>
+                                    <td>{{number_format($dados->ValorMovimentacaoFinanc,2,',','.')}}</td>
+                                    <td>{{number_format($dados->ValorPagoMovimentacaoFinanc,2,',','.')}}</td>
+                                    <td>{{number_format($dados->ValorMovimentacaoFinanc-$dados->ValorFimMovimentacaoFinanc,2,',','.')}}</td>
                                     <td>{{$dados->ObsMovimentacaoFinanc}}</td>
                                     <td>
                                         <div class="row">
@@ -246,6 +267,7 @@
             </div>
         </div> <!-- /.card-body -->
     </div> <!-- /.card -->
+</div>
 
 
 
@@ -472,14 +494,21 @@
 
             // Iterar pelas linhas visíveis da tabela
             $('#tableContent tbody tr:visible').each(function() {
-                let valor = parseFloat($(this).find('td:eq(6)').text().replace(/\./g, '').replace(',', '.'));
-                let categoria = $(this).find('td:eq(2)').text().trim(); // Categoria (Receita/Despesa)
+                // Verificar se o ícone de "pago" (bi-check-circle-fill) está presente
+                let pagoIcon = $(this).find('td:eq(0) i');  // Ícone dentro da primeira coluna
+                let isPago = pagoIcon.hasClass('bi-check-circle-fill'); // Verifica se é o ícone de pagamento
 
-                // Verificar se é receita ou despesa e somar os valores
-                if (categoria === 'Receita - Fixa' || categoria === 'Receita - Variável' || categoria === 'Receita - Extra' || categoria === 'Receita - Transferência') {
-                    receitaTotal += valor;
-                } else if (categoria === 'Despesa - Fixa' || categoria === 'Despesa - Variável' || categoria === 'Despesa - Extra' || categoria === 'Despesa - Transferência') {
-                    despesaTotal += valor;
+                if (isPago) {
+                    // Se está pago, pegar o valor e categoria
+                    let valor = parseFloat($(this).find('td:eq(7)').text().replace(/\./g, '').replace(',', '.'));
+                    let categoria = $(this).find('td:eq(2)').text().trim(); // Categoria (Receita/Despesa)
+
+                    // Verificar se é receita ou despesa e somar os valores
+                    if (categoria.includes('Receita')) {
+                        receitaTotal += valor;
+                    } else if (categoria.includes('Despesa')) {
+                        despesaTotal += valor;
+                    }
                 }
             });
 

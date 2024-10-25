@@ -87,7 +87,7 @@ route::post('/categoria/delete', [CategoriaController::class, 'delete']);
 
 //Rotas das subcategorias
 route::get('/subcategoria', [SubcategoriaController::class, 'index']);
-route::get('/subcategoria/cad', [SubcategoriaController::class, 'insert']);
+route::get('/subcategoria/cad/{id}', [SubcategoriaController::class, 'insert']);
 route::post('/subcategoria/cad', [SubcategoriaController::class, 'store']);
 route::get('/subcategoria/{id}', [SubcategoriaController::class, 'show']);
 route::get('/subcategoria/edit/{id}', [SubcategoriaController::class, 'showEdit']);
