@@ -479,7 +479,7 @@
 
             try {
                 // 1️⃣ Registrar Service Worker
-                const swRegistration = await navigator.serviceWorker.register('/sw.js');
+                const swRegistration = await navigator.serviceWorker.register('/service-worker.js');
                 console.log('Service Worker registrado:', swRegistration);
 
                 // 2️⃣ Solicitar permissão do usuário
