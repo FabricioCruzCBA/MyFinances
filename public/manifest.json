@@ -2,7 +2,7 @@
   "name": "MyFinances",
   "short_name": "FinancesApp",
   "start_url": "/",
-  "display": "fullscrem",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#0d6efd",
   "orientation": "portrait",

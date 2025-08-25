@@ -207,7 +207,7 @@ Route::post('/push/send', function (\Illuminate\Http\Request $request) {
 
 Route::get('/vapid-key', function () {
     return response()->json([
-        'key' => config('webpush.vapid.public_key')
+        'publicKey' => config('webpush.vapid.public_key'),
     ]);
 });
 
