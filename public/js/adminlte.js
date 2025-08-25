@@ -6,7 +6,7 @@
 
 ////////////////////////////////////* bloco para notificação do usuario*//////////////////////////////////////////
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('/service-worker.js')
     .then(function(registration) {
         console.log('Service Worker registrado:', registration);
     }).catch(function(err) {

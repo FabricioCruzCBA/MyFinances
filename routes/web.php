@@ -205,6 +205,12 @@ Route::post('/push/send', function (\Illuminate\Http\Request $request) {
     return response()->json(['success' => true]);
 });
 
+Route::get('/vapid-key', function () {
+    return response()->json([
+        'key' => config('webpush.vapid.public_key')
+    ]);
+});
+
 
 route::get('mail-teste', function(){
     $mail = new Arr;

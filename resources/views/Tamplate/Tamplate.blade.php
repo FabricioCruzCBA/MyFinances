@@ -478,38 +478,46 @@
         document.getElementById('enable-notifications').addEventListener('click', async () => {
 
             try {
-                // 1️⃣ Registrar Service Worker
-                const swRegistration = await navigator.serviceWorker.register('/service-worker.js');
-                console.log('Service Worker registrado:', swRegistration);
+                const registration = await navigator.serviceWorker.ready;
 
-                // 2️⃣ Solicitar permissão do usuário
-                const permission = await Notification.requestPermission();
-                if (permission !== 'granted') {
-                    alert('Você precisa permitir notificações para receber alertas.');
-                    return;
+                // Busca a chave pública do backend
+                const response = await fetch('/vapid-key');
+                const data = await response.json();
+                const vapidPublicKey = data.key;
+
+                // Converte a chave pública em Uint8Array
+                function urlBase64ToUint8Array(base64String) {
+                    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+                    const base64 = (base64String + padding)
+                        .replace(/-/g, '+')
+                        .replace(/_/g, '/');
+
+                    const rawData = window.atob(base64);
+                    return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
                 }
 
-                // 3️⃣ Subscribing para Push
-                const publicVapidKey = "<?= env('VAPID_PUBLIC_KEY') ?>"; // ou pegue do JS
-                const convertedVapidKey = urlBase64ToUint8Array(publicVapidKey);
-
-                const subscription = await swRegistration.pushManager.subscribe({
+                const subscription = await registration.pushManager.subscribe({
                     userVisibleOnly: true,
-                    applicationServerKey: convertedVapidKey
+                    applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
                 });
 
-                // 4️⃣ Enviar a subscription para o backend
+                console.log("Inscrição bem-sucedida:", subscription);
+
+                // Enviar para o servidor
                 await fetch('/push/subscribe', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
                     body: JSON.stringify(subscription)
                 });
 
-                alert('Notificações ativadas com sucesso!');
-
-            } catch (err) {
-                console.error('Erro ao registrar notificações:', err);
+                alert("Inscrição feita com sucesso!");
+            } catch (error) {
+                console.error("Erro ao registrar notificações:", error);
             }
+
         });
     }
 

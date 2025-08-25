@@ -4,8 +4,8 @@ self.addEventListener("install", (event) => {
       return cache.addAll([
         "/",
         "/login",
-        "/css/app.css",
-        "/js/app.js"
+        "/css/meucss.css",
+        "/js/adminlte.js"
       ]);
     })
   );
