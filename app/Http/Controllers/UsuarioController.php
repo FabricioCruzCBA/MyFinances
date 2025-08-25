@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Carbon;
 use App\Mail\sendmail;
+use App\Notifications\TestNotification;
 
 class UsuarioController extends Controller
 {
@@ -359,5 +360,11 @@ class UsuarioController extends Controller
         }else{
             return redirect('/login')->with('msg', 'Token não encontrado ou é inválido!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
         }
+    }
+
+    public function not()
+    {
+        $user = usuario::find(session('user'));
+        $user->notify(new TestNotification());
     }
 }

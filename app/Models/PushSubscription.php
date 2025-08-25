@@ -9,7 +9,12 @@ class PushSubscription extends Model
 {
     use HasFactory;
 
+    protected $table = 'push_subscriptions';
+
     protected $fillable = [
-        'usuario_id', 'endpoint', 'public_key', 'auth_token'
+        'usuario_id',
+        'endpoint',
+        'public_key',
+        'auth_token',
     ];
 }

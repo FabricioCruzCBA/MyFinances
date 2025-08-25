@@ -211,6 +211,7 @@ Route::get('/vapid-key', function () {
     ]);
 });
 
+route::get('/teste', [UsuarioController::class, 'not']);
 
 route::get('mail-teste', function(){
     $mail = new Arr;
@@ -231,3 +232,5 @@ route::get('mail-teste', function(){
         echo('Deu ruim!');
     }
 });
+
+
