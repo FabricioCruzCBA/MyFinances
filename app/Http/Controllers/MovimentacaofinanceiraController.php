@@ -427,6 +427,7 @@ class MovimentacaofinanceiraController extends Controller
                         $movFin->ValorFimMovimentacaoFinanc = Str::replace([','],'.',Str::replace(['.'],'',$request->ValorMovimentacaoFinanc));
                         $movFin->ObsMovimentacaoFinanc = $request->ObsMovimentacaoFinanc;
                         $movFin->PagoMovimentacaoFinanc = '1';
+                        $movFin->QntParcelasMovimentacaoFinanc = '1';
 
                         if($request->boolean('DividaMovimentacaoFinanc')){
                             $movFin->DividaMovimentacaoFinanc = '1';
@@ -525,7 +526,7 @@ class MovimentacaofinanceiraController extends Controller
                             }
                         }
 
-                        
+                         
 
                     }else{
                         //caso o valor não esteja marcado como pago
@@ -541,6 +542,8 @@ class MovimentacaofinanceiraController extends Controller
                         $movFin->ValorMovimentacaoFinanc = Str::replace([','],'.',Str::replace(['.'],'',$request->ValorMovimentacaoFinanc));
                         $movFin->ValorFimMovimentacaoFinanc = Str::replace([','],'.',Str::replace(['.'],'',$request->ValorMovimentacaoFinanc));
                         $movFin->ObsMovimentacaoFinanc = $request->ObsMovimentacaoFinanc;
+                        $movFin->QntParcelasMovimentacaoFinanc = '1';
+
 
                         if($request->boolean('DividaMovimentacaoFinanc')){
                             $movFin->DividaMovimentacaoFinanc = '1';

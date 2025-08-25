@@ -177,7 +177,7 @@ class SubcategoriaController extends Controller
                 }else{
                     return redirect('/categoria/'.$sub->categoria_id)->with('msg', 'Você não tem acesso a esse registro!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');     
                 }
-            }else{
+            }else{ 
                 
                 return redirect('/categoria/'.$sub->categoria_id)->with('msg', 'Registro não encontrado!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');    
             }
