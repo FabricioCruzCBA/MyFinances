@@ -119,7 +119,7 @@
                                     <div class="col-4 text-center"> <a href="#">Friends</a> </div>-->
                                 </div> <!--end::Row-->
                             </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
-                            <li class="user-footer"> <a href="/perfil" class="btn btn-default btn-flat">Perfil</a> <a href="/sair" class="btn btn-default btn-flat float-end">Sair</a> </li> <!--end::Menu Footer-->
+                            <li class="user-footer"> <a href="/perfil" class="btn btn-default btn-flat">Perfil</a> <button id="enable-notifications">Ativar Notificações</button> <a href="/sair" class="btn btn-default btn-flat float-end">Sair</a> </li> <!--end::Menu Footer-->
                         </ul>
                     </li> <!--end::User Menu Dropdown-->
                 </ul> <!--end::End Navbar Links-->
@@ -469,6 +469,62 @@
 <input type="hidden" value="{{session('colorB')}}" id='colorB'>
 <input type="hidden" value="{{session('textB')}}" id='textB'>
 <input type="hidden" value="{{session('title')}}" id='title'>
+
+<script>
+    // Verifica se o navegador suporta Service Worker e Push
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+
+        // Quando o usuário clica no botão
+        document.getElementById('enable-notifications').addEventListener('click', async () => {
+
+            try {
+                // 1️⃣ Registrar Service Worker
+                const swRegistration = await navigator.serviceWorker.register('/sw.js');
+                console.log('Service Worker registrado:', swRegistration);
+
+                // 2️⃣ Solicitar permissão do usuário
+                const permission = await Notification.requestPermission();
+                if (permission !== 'granted') {
+                    alert('Você precisa permitir notificações para receber alertas.');
+                    return;
+                }
+
+                // 3️⃣ Subscribing para Push
+                const publicVapidKey = "<?= env('VAPID_PUBLIC_KEY') ?>"; // ou pegue do JS
+                const convertedVapidKey = urlBase64ToUint8Array(publicVapidKey);
+
+                const subscription = await swRegistration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: convertedVapidKey
+                });
+
+                // 4️⃣ Enviar a subscription para o backend
+                await fetch('/push/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(subscription)
+                });
+
+                alert('Notificações ativadas com sucesso!');
+
+            } catch (err) {
+                console.error('Erro ao registrar notificações:', err);
+            }
+        });
+    }
+
+    // Função para converter a chave VAPID
+    function urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding)
+            .replace(/\-/g, '+')
+            .replace(/_/g, '/');
+
+        const rawData = window.atob(base64);
+        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+    }
+
+</script>
 
 
         <footer class="app-footer"> <!--begin::To the end-->

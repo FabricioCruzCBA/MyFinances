@@ -5,6 +5,14 @@
  */
 
 ////////////////////////////////////* bloco para notificação do usuario*//////////////////////////////////////////
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+    .then(function(registration) {
+        console.log('Service Worker registrado:', registration);
+    }).catch(function(err) {
+        console.log('Falha no registro do SW:', err);
+    });
+}
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/service-worker.js");
 }
