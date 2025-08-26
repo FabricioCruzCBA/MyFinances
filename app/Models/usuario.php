@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable; // <-- obrigatório
-use NotificationChannels\WebPush\HasPushSubscriptions;
+
 
 class usuario extends Model
 {
