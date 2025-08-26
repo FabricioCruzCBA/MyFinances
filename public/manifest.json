@@ -1,7 +1,7 @@
 {
   "name": "MyFinances",
   "short_name": "FinancesApp",
-  "start_url": "/",
+  "start_url": "https://app.sistemadiesel.com.br/login",
   "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
