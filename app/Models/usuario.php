@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable; // <-- obrigatório
 
 class usuario extends Model
 {
-    use HasFactory; // <--- aqui
+    use HasFactory, Notifiable; // <--- aqui
 
    
 
