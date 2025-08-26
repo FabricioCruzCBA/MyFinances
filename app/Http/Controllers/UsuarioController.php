@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Carbon;
 use App\Mail\sendmail;
 use App\Notifications\TestNotification;
+use NotificationChannels\WebPush\WebPushMessage;
+use NotificationChannels\WebPush\WebPushChannel;
+use Illuminate\Support\Facades\Notification;
+use App\Models\PushSubscription;
 
 class UsuarioController extends Controller
 {
@@ -364,7 +368,49 @@ class UsuarioController extends Controller
 
     public function not()
     {
-        $user = usuario::find(session('user'));
-        $user->notify(new TestNotification());
+        // Suponha que você quer enviar uma notificação para um usuário específico
+        $user = usuario::find(1);
+
+        // O pacote agora consegue encontrar as inscrições sozinho,
+        // graças ao trait HasWebPushSubscriptions
+        if ($user->webPushSubscriptions->isEmpty()) {
+            return "Nenhuma inscrição encontrada para este usuário.";
+        }
+
+        // Criar a mensagem da notificação
+        $title = "Nova Mensagem!";
+        $body = "Você tem uma nova notificação do seu site.";
+        $icon = "/icons/icon-192x192.png";
+
+        // Enviar a notificação para o usuário.
+        // O sistema de notificação do Laravel se encarrega de encontrar as subscriptions
+        // ligadas a esse modelo
+        Notification::send($user, new class($title, $body, $icon) extends \Illuminate\Notifications\Notification {
+            private $title;
+            private $body;
+            private $icon;
+
+            public function __construct($title, $body, $icon)
+            {
+                $this->title = $title;
+                $this->body = $body;
+                $this->icon = $icon;
+            }
+
+            public function via($notifiable)
+            {
+                return [WebPushChannel::class];
+            }
+
+            public function toWebPush($notifiable, $notification)
+            {
+                return (new WebPushMessage)
+                    ->title($this->title)
+                    ->body($this->body)
+                    ->icon($this->icon);
+            }
+        });
+
+        return "Notificação enviada com sucesso!";
     }
 }
