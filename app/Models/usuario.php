@@ -11,22 +11,7 @@ class Usuario extends Model
 {
     use HasFactory, Notifiable; // <--- aqui
 
-    public function pushSubscriptions()
-    {
-        return $this->hasMany(\NotificationChannels\WebPush\PushSubscription::class, 'usuario_id');
-    }
-
-    public function webPushSubscriptions()
-    {
-        return $this->hasMany('App\Models\PushSubscription');
-    }
    
-
-    // Necessário para WebPushChannel
-    public function routeNotificationForWebPush()
-    {
-        return $this->pushSubscriptions();
-    }
 
     public function usuarioAcesso()
     {

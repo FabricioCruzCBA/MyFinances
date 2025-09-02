@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Usuario;
+use App\Models\usuario;
 use App\Models\User;
 
 use App\Models\historicosenhausuario;
