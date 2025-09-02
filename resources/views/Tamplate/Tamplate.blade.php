@@ -232,17 +232,32 @@
                 navigator.serviceWorker.ready.then((sw)=>{
                     sw.pushManager.subscribe({
                         userVisibleOnly: true,
-                        applicationServerKey: "BF1vhyNZrLOiyYv1RIEj-GyTblA8ZRHOjzCAdurpRoxwuavjIGzNYCs66JdTORwZBVkvPPnv5l7aImHVjHBmZbQ",
+                        applicationServerKey: "BNINyJ7UM0DgiGpu3hMrgHHHnbyA3eQbHUtLT0Sf21DCsr7VY0ENDvtGeqnUF02xVAqK60xwsrSbai_7jwcXo-k",
 
                     }).then((subscription)=>{
                         console.log(subscription);
+                        saveSub(JSON.stringify(subscription));
                     })
                 })
             }
         })
     }
 
+    function saveSub(sub){
+        $.ajax({
+            type: 'post',
+            url: '{{URL('save-push-notification-sub')}}',
+            data:{
+                '_token': "{{csrf_token()}}",
+                'sub': sub
+            },
+            success: function (data){
+                alert('inscrição realizada com sucesso!');
+            }
+        });
+    }
 
+//{"publicKey":"BNINyJ7UM0DgiGpu3hMrgHHHnbyA3eQbHUtLT0Sf21DCsr7VY0ENDvtGeqnUF02xVAqK60xwsrSbai_7jwcXo-k","privateKey":"owBEECsI1l6L65VKZ71BsrL8eUyqEceO3NK4bpO_UbE"}//
 </script>
 
 

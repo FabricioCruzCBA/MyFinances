@@ -18,6 +18,12 @@ use App\Http\Controllers\MovimentacaofinanceiraController;
 use App\Http\Controllers\MovimentacaocartaoController;
 use App\Http\Controllers\SistemaController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\PushNotificationController;
+
+
+///////////////rotas notificações////////////////////////
+route::post('save-push-notification-sub', [PushNotificationController::class, 'saveSubscription']);
+route::get('send-notification', [PushNotificationController::class, 'sendNotification']);
 
 
 //Rota do home dashboars
