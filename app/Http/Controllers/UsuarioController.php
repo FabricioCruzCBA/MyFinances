@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\usuario;
+use App\Models\Usuario;
+use App\Models\User;
+
 use App\Models\historicosenhausuario;
 use App\Models\tokenverificaemail;
 use App\Models\familia;
@@ -367,50 +369,62 @@ class UsuarioController extends Controller
     }
 
     public function not()
-    {
-        // Suponha que você quer enviar uma notificação para um usuário específico
-        $user = usuario::find(1);
+{
+    // 1. Crie um usuário em memória. Não será salvo no banco de dados.
+    $user =  User::first();
 
-        // O pacote agora consegue encontrar as inscrições sozinho,
-        // graças ao trait HasWebPushSubscriptions
-        if ($user->webPushSubscriptions->isEmpty()) {
-            return "Nenhuma inscrição encontrada para este usuário.";
+    // 2. Crie uma inscrição de push em memória. Você precisará de dados
+    // válidos que foram gerados no seu frontend.
+    // Substitua os valores abaixo por uma subscription REAL que você
+    // coletou de um usuário no seu frontend.
+    $subscription = new \NotificationChannels\WebPush\PushSubscription([
+        'endpoint' => 'https://fcm.googleapis.com/fcm/send/eaci6n1OPWo:APA91bEozU9JbnrHPwOKFcKfyJFKpu0HGPil00SPsSZED4Uj23t9T9GzD82zTx0b4TdpZ9agXkVO1lY0DuMM7KKF0DuEsoHFjWvURiDFtfcL9UUIMdB2I-y54Jj5Vaoc2Ri3U27wnVOO',
+        'public_key' => 'BF1vhyNZrLOiyYv1RIEj-GyTblA8ZRHOjzCAdurpRoxwuavjIGzNYCs66JdTORwZBVkvPPnv5l7aImHVjHBmZbQ',
+        'auth_token' => 'TDvm3ld5uUqRIHIB5niC0g',
+        'content_encoding' => 'aesgcm' // ou 'aes128gcm'
+    ]);
+
+    // 3. Adicione a inscrição ao relacionamento do usuário.
+    // Isso simula o que o banco de dados faria.
+    $user->setRelation('pushSubscriptions', collect([$subscription]));
+
+    // 4. Verifique se a coleção existe e não está vazia.
+    if ($user->pushSubscriptions->isEmpty()) {
+        return "Nenhuma inscrição encontrada. Verifique os dados.";
+    }
+
+    // 5. Crie a mensagem da notificação.
+    $title = "Nova Mensagem!";
+    $body = "Você tem uma nova notificação do seu site.";
+    $icon = "/icons/icon-192x192.png";
+    //dd($user);
+    // 6. Envie a notificação para o usuário (o modelo Usuario).
+    Notification::send($user, new class($title, $body, $icon) extends \Illuminate\Notifications\Notification {
+        private $title;
+        private $body;
+        private $icon;
+
+        public function __construct($title, $body, $icon)
+        {
+            $this->title = $title;
+            $this->body = $body;
+            $this->icon = $icon;
         }
 
-        // Criar a mensagem da notificação
-        $title = "Nova Mensagem!";
-        $body = "Você tem uma nova notificação do seu site.";
-        $icon = "/icons/icon-192x192.png";
+        public function via($notifiable)
+        {
+            return [\NotificationChannels\WebPush\WebPushChannel::class];
+        }
 
-        // Enviar a notificação para o usuário.
-        // O sistema de notificação do Laravel se encarrega de encontrar as subscriptions
-        // ligadas a esse modelo
-        Notification::send($user, new class($title, $body, $icon) extends \Illuminate\Notifications\Notification {
-            private $title;
-            private $body;
-            private $icon;
+        public function toWebPush($notifiable, $notification)
+        {
+            return (new \NotificationChannels\WebPush\WebPushMessage)
+                ->title($this->title)
+                ->body($this->body)
+                ->icon($this->icon);
+        }
+    });
 
-            public function __construct($title, $body, $icon)
-            {
-                $this->title = $title;
-                $this->body = $body;
-                $this->icon = $icon;
-            }
-
-            public function via($notifiable)
-            {
-                return [WebPushChannel::class];
-            }
-
-            public function toWebPush($notifiable, $notification)
-            {
-                return (new WebPushMessage)
-                    ->title($this->title)
-                    ->body($this->body)
-                    ->icon($this->icon);
-            }
-        });
-
-        return "Notificação enviada com sucesso!";
-    }
+    return "Notificação enviada com sucesso!";
+}
 }

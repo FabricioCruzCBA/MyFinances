@@ -5,43 +5,7 @@
  */
 
 ////////////////////////////////////* bloco para notificação do usuario*//////////////////////////////////////////
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-    .then(function(registration) {
-        console.log('Service Worker registrado:', registration);
-    }).catch(function(err) {
-        console.log('Falha no registro do SW:', err);
-    });
-}
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js");
-}
 
-async function subscribeUser() {
-  if ("serviceWorker" in navigator && "PushManager" in window) {
-    const reg = await navigator.serviceWorker.ready;
-    const subscription = await reg.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array("{{ env('VAPID_PUBLIC_KEY') }}")
-    });
-
-    // Enviar pro backend
-    await fetch("/api/save-subscription", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(subscription)
-    });
-  }
-}
-
-function urlBase64ToUint8Array(base64String) {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
-  const rawData = atob(base64);
-  return Uint8Array.from([...rawData].map((c) => c.charCodeAt(0)));
-}
-
-subscribeUser();
 ////////////////////////////////////* bloco para notificação do usuario*//////////////////////////////////////////
 
 

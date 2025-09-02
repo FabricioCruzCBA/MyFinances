@@ -21,6 +21,15 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function pushSubscriptions()
+    {
+        return $this->hasMany(\NotificationChannels\WebPush\PushSubscription::class, 'usuario_id');
+    }
+
+    public function webPushSubscriptions()
+    {
+        return $this->hasMany('App\Models\PushSubscription');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

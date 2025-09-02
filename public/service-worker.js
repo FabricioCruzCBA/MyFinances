@@ -1,32 +1,19 @@
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open("diesel-cache").then((cache) => {
-      return cache.addAll([
-        "/",
-        "/login",
-        "/css/meucss.css",
-        "/js/adminlte.js"
-      ]);
-    })
-  );
+self.addEventListener('push', (event)=>{
+    const notification = event.data.json();
+
+    event.waitUntil(
+        self.registration.showNotification(notification.title, {
+            body:notification.body,
+            icon:'icons/icon-192x192.png',
+            data:{
+                url:notification.url,
+            }
+        })
+    );
 });
 
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
-
-self.addEventListener("push", function(event) {
-  const data = event.data.json();
-
-  event.waitUntil(
-    self.registration.showNotification(data.title, {
-      body: data.body,
-      icon: "/icons/icon-192x192.png",
-      badge: "/icons/icon-192x192.png"
-    })
-  );
+self.addEventListener("notificationclick", (event)=>{
+    event.waitUntil(
+        clients.openWindow(event.notification.data.url)
+    )
 });

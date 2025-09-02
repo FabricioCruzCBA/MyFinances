@@ -170,48 +170,7 @@ route::post('/agenda/excluir', [AgendaController::class, 'excluir']);
 
 
 // routes/api.php para notificação
-Route::post('/push/subscribe', function (Illuminate\Http\Request $request) {
-    if (!session()->has('user')) {
-        return response()->json(['error' => 'Usuário não autenticado'], 401);
-    }
 
-    $usuarioId = session('user'); // seu ID de usuário na sessão
-
-    \App\Models\PushSubscription::updateOrCreate(
-        ['usuario_id' => $usuarioId, 'endpoint' => $request->endpoint],
-        [
-            'public_key' => $request->keys['p256dh'],
-            'auth_token' => $request->keys['auth']
-        ]
-    );
-
-    return response()->json(['success' => true]);
-});
-
-Route::post('/push/send', function (\Illuminate\Http\Request $request) {
-    if (!session()->has('user')) {
-        return response()->json(['error' => 'Usuário não autenticado'], 401);
-    }
-
-    $usuarioId = session('user');
-
-    \App\Services\PushService::sendNotification($usuarioId, [
-        'title' => 'Nova notificação 🚀',
-        'body' => 'Você tem uma nova mensagem!',
-        'icon' => '/icons/icon-192x192.png',
-        'url' => '/notificacoes' // página que abrirá ao clicar
-    ]);
-
-    return response()->json(['success' => true]);
-});
-
-Route::get('/vapid-key', function () {
-    return response()->json([
-        'publicKey' => config('webpush.vapid.public_key'),
-    ]);
-});
-
-route::get('/teste', [UsuarioController::class, 'not']);
 
 route::get('mail-teste', function(){
     $mail = new Arr;

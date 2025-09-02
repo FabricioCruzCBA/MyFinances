@@ -5,13 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable; // <-- obrigatório
-use NotificationChannels\WebPush\HasWebPushSubscriptions;
 
 
-class usuario extends Model
+class Usuario extends Model
 {
-    use HasFactory, Notifiable, HasWebPushSubscriptions; // <--- aqui
+    use HasFactory, Notifiable; // <--- aqui
 
+    public function pushSubscriptions()
+    {
+        return $this->hasMany(\NotificationChannels\WebPush\PushSubscription::class, 'usuario_id');
+    }
+
+    public function webPushSubscriptions()
+    {
+        return $this->hasMany('App\Models\PushSubscription');
+    }
    
 
     // Necessário para WebPushChannel

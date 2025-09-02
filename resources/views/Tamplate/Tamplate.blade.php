@@ -121,7 +121,7 @@
                             </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
                             <li class="user-footer"> 
                                 <a href="/perfil" class="btn btn-default btn-flat">Perfil</a> 
-                                <button id="enable-notifications">Ativar Notificações</button>
+                                <button onclick="askForPermission()">Ativar Notificações</button>
                                 <meta name="csrf-token" content="{{ csrf_token() }}">
                                 <a href="/sair" class="btn btn-default btn-flat float-end">Sair</a> </li> <!--end::Menu Footer-->
                         </ul>
@@ -224,66 +224,24 @@
 <input type="hidden" value="{{session('title')}}" id='title'>
 
 <script>
-    // Verifica se o navegador suporta Service Worker e Push
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
+    navigator.serviceWorker.register("{{URL::asset('service-worker.js')}}");
+    
+    function askForPermission(){
+        Notification.requestPermission().then((permission)=>{
+            if(permission === 'granted'){
+                navigator.serviceWorker.ready.then((sw)=>{
+                    sw.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: "BF1vhyNZrLOiyYv1RIEj-GyTblA8ZRHOjzCAdurpRoxwuavjIGzNYCs66JdTORwZBVkvPPnv5l7aImHVjHBmZbQ",
 
-        // Quando o usuário clica no botão
-        document.getElementById('enable-notifications').addEventListener('click', async () => {
-
-            try {
-                const registration = await navigator.serviceWorker.ready;
-
-                // Busca a chave pública do backend
-                const response = await fetch('/vapid-key');
-                const data = await response.json();
-                const vapidPublicKey = data.publicKey;
-
-                // Converte a chave pública em Uint8Array
-                function urlBase64ToUint8Array(base64String) {
-                    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-                    const base64 = (base64String + padding)
-                        .replace(/-/g, '+')
-                        .replace(/_/g, '/');
-
-                    const rawData = window.atob(base64);
-                    return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
-                }
-
-                const subscription = await registration.pushManager.subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
-                });
-
-                console.log("Inscrição bem-sucedida:", subscription);
-
-                // Enviar para o servidor
-                await fetch('/push/subscribe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify(subscription)
-                });
-
-                alert("Inscrição feita com sucesso!");
-            } catch (error) {
-                console.error("Erro ao registrar notificações:", error);
+                    }).then((subscription)=>{
+                        console.log(subscription);
+                    })
+                })
             }
-
-        });
+        })
     }
 
-    // Função para converter a chave VAPID
-    function urlBase64ToUint8Array(base64String) {
-        const padding = '='.repeat((4 - base64String.length % 4) % 4);
-        const base64 = (base64String + padding)
-            .replace(/\-/g, '+')
-            .replace(/_/g, '/');
-
-        const rawData = window.atob(base64);
-        return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
-    }
 
 </script>
 
