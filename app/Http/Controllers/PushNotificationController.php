@@ -57,8 +57,8 @@ class PushNotificationController extends Controller
             $notifications = [
                 [
                     'subscription' => $subscription,
-                    'payload' => '{"title":"Notificação teste!", "body":"Essa é uma notificação teste"}',
-                    'url' => 'https://app.sistemadiesel.com.br/login'
+                    'payload' => '{"title":"Notificação teste!", "body":"Essa é uma notificação teste", "url":"https://app.sistemadiesel.com.br/login"}',
+                    
                 ],
             ];
 
@@ -66,7 +66,7 @@ class PushNotificationController extends Controller
             foreach ($notifications as $notification) {
                 $webPush->queueNotification(
                     $notification['subscription'],
-                    $notification['payload'] // optional (defaults null)
+                    $notification['payload']
                 );
             }
 
