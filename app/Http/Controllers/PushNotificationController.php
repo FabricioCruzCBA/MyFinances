@@ -58,6 +58,7 @@ class PushNotificationController extends Controller
                 [
                     'subscription' => $subscription,
                     'payload' => '{"title":"Notificação teste!", "body":"Essa é uma notificação teste"}',
+                    'url' => 'https://app.sistemadiesel.com.br/login'
                 ],
             ];
 
