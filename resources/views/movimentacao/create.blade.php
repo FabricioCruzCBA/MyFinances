@@ -302,9 +302,11 @@
             if(checkDivida){
                 $('#cartaoId').show();
                 $('#banco').hide();
+                $('#banco_id').attr('required', false);
             }else{
                 $('#cartaoId').hide();
                 $('#banco').show();
+                $('#banco_id').attr('required', true);
                 $('#cartaocredito_id').val('');
             }
         });
