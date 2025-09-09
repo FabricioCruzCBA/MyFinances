@@ -24,6 +24,7 @@ use App\Http\Controllers\PushNotificationController;
 ///////////////rotas notificações////////////////////////
 route::post('save-push-notification-sub', [PushNotificationController::class, 'saveSubscription']);
 route::get('send-notification', [PushNotificationController::class, 'sendNotification']);
+route::get('testeSend', [PushNotificationController::class, 'testeNotificacao']);
 
 
 //Rota do home dashboars

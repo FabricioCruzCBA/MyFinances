@@ -43,10 +43,11 @@ class NotificacaoAgenda extends Command
         $in15Minutes = $now->copy()->addMinutes(15);
 
         //Pegando os compromissos de quem tem assintatura
-        $agenda = agenda::whereInd('usuario_id', $user)
+        $agenda = agenda::whereIn('usuario_id', $user)
                         ->where('Ativo', '1')
                         ->whereBetween('DataStart', [$now, $in15Minutes])
-                        ->where('Confirmacao', '0');
+                        ->where('Confirmacao', '0')
+                        ->get();
         
         //autenticando a assinatura       
         $auth = [
@@ -58,8 +59,8 @@ class NotificacaoAgenda extends Command
         ];
         //adicionando a autenticação no WebPush
         $webPush = new WebPush($auth);
-
-        if(count($agenda)>0){
+        //dd($agenda);
+        if(!empty($agenda)){
             foreach($agenda as $not){
                 $assinatura = $assinaturas->where('usuario_id', $agenda->usuario_id);
                 $valor = json_decode($assinatura->subscriptions, true);
@@ -97,8 +98,6 @@ class NotificacaoAgenda extends Command
         }else{
             $this->info('Não há agendamentos');
         }
-
-
 
     }
 }
