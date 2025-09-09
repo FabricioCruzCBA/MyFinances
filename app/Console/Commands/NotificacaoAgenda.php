@@ -91,11 +91,11 @@ class NotificacaoAgenda extends Command
                     );
                 }
 
-                return 'notificação realizada';
+                $this->info('Executado');
 
             }
         }else{
-            return 'não há o que notificar';
+            $this->info('Não há agendamentos');
         }
 
 
