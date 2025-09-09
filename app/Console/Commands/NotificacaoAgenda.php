@@ -62,7 +62,7 @@ class NotificacaoAgenda extends Command
         //dd($agenda);
         if(!empty($agenda)){
             foreach($agenda as $not){
-                $assinatura = $assinaturas->where('usuario_id', $agenda->usuario_id);
+                $assinatura = $assinaturas->where('usuario_id', $not->usuario_id);
                 $valor = json_decode($assinatura->subscriptions, true);
 
                 $asing = json_encode([
@@ -92,17 +92,17 @@ class NotificacaoAgenda extends Command
                     );
                 }
 
-                $this->info('Executado');
-                echo('deu bom');
-                dd($agenda);
+                //$this->info('Executado');
+                //echo('deu bom');
+                //dd($agenda);
             }
         }else{
-            $this->info('Não há agendamentos');
-            echo('deu ruim');
-            dd($agenda);
+            //$this->info('Não há agendamentos');
+            //echo('deu ruim');
+            //dd($agenda);
         }
         
-        dd($agenda);
+        //dd($agenda);
 
         
 
