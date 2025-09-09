@@ -39,7 +39,7 @@ class NotificacaoAgenda extends Command
         $user = PushNotification::pluck('usuario_id')->all();
         // Define o novo intervalo de tempo para checar: agora até os próximos 15 minutos
         // Use startOfSecond() para zerar os milissegundos e segundos
-        $now = Carbon::now()->startOfMinute();
+        $now = Carbon::now('America/Cuiaba')->startOfMinute();
         $in15Minutes = $now->copy()->addMinutes(15);
         //dd($user);
         //Pegando os compromissos de quem tem assintatura
