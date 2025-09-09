@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         // Agendamento para checar compromissos
-        $schedule->command('app:notificacao-agenda')->everyMinutes();
+        $schedule->command('app:notificacao-agenda')->everyMinute();
     }
 }
