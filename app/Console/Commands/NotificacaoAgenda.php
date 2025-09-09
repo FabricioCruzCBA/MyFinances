@@ -39,13 +39,13 @@ class NotificacaoAgenda extends Command
         $user = PushNotification::pluck('usuario_id')->all();
         // Define o novo intervalo de tempo para checar: agora até os próximos 15 minutos
         // Use startOfSecond() para zerar os milissegundos e segundos
-        $now = Carbon::now()->startOfMinute();
+        $now = Carbon::now()->startOfSecond();
         $in15Minutes = $now->copy()->addMinutes(15);
-        //dd($user);
+
         //Pegando os compromissos de quem tem assintatura
         $agenda = agenda::whereIn('usuario_id', $user)
                         ->where('Ativo', '1')
-                        ->where('DataStart',$in15Minutes)
+                        ->whereBetween('DataStart', [$now, $in15Minutes])
                         ->where('Confirmacao', '0')
                         ->get();
         
@@ -60,12 +60,9 @@ class NotificacaoAgenda extends Command
         //adicionando a autenticação no WebPush
         $webPush = new WebPush($auth);
         //dd($agenda);
-        echo($now.'<br>');
-        echo($in15Minutes);
         if(!empty($agenda)){
             foreach($agenda as $not){
-                $assinatura = $assinaturas->where('usuario_id', $not->usuario_id)->first();
-                //dd($assinatura);
+                $assinatura = $assinaturas->where('usuario_id', $agenda->usuario_id);
                 $valor = json_decode($assinatura->subscriptions, true);
 
                 $asing = json_encode([
@@ -95,29 +92,17 @@ class NotificacaoAgenda extends Command
                     );
                 }
 
-                /**
-                 * Check sent results
-                 * @var MessageSentReport $report
-                 */
-                foreach ($webPush->flush() as $report) {
-                    $endpoint = $report->getRequest()->getUri()->__toString();
-
-                    if ($report->isSuccess()) {
-                        echo "[v] Message sent successfully for subscription {$endpoint}.";
-                    } else {
-                        echo "[x] Message failed to sent for subscription {$endpoint}: {$report->getReason()}";
-                    }
-                }
-
+                $this->info('Executado');
                 echo('deu bom');
-                //dd($agenda);
+                dd($agenda);
             }
         }else{
+            $this->info('Não há agendamentos');
             echo('deu ruim');
-            //dd($agenda);
+            dd($agenda);
         }
         
-        //dd($agenda);
+        dd($agenda);
 
         
 

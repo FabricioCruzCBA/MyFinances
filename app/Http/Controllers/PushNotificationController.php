@@ -169,13 +169,13 @@ class PushNotificationController extends Controller
                 }
 
                 echo('deu bom');
-                //dd($agenda);
+                dd($agenda);
             }
         }else{
             echo('deu ruim');
-            //dd($agenda);
+            dd($agenda);
         }
         
-        //dd($agenda);
+        dd($agenda);
     }
 }
