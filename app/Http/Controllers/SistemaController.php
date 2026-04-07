@@ -226,8 +226,52 @@ class SistemaController extends Controller
                                 ->where('familia_id',session('familia'))
                                 ->get();
 
+
+            ///////////////////dre///////
+            $ano = $year;
+            $familiaId = session('familia'); // Assumindo que você guarda o ID da família na sessão
+
+            $movimentacoes = DB::table('movimentacaofinanceiras as mf')
+                ->join('categorias as c', 'mf.categoria_id', '=', 'c.id')
+                ->join('subcategorias as sc', 'mf.subcategoria_id', '=', 'sc.id')
+                ->where('mf.familia_id', $familiaId)
+                ->whereYear('mf.DataMovimentacaoFinanc', $ano)
+                ->where('mf.AtivoMovimentacaoFinanc', '1')
+                ->select(
+                    'c.NomeCategoria',
+                    'c.TipoCategoria',
+                    'sc.NomeSubCategoria',
+                    DB::raw('MONTH(mf.DataMovimentacaoFinanc) as mes'),
+                    DB::raw('SUM(mf.ValorMovimentacaoFinanc) as total')
+                )
+                ->groupBy('c.NomeCategoria', 'c.TipoCategoria', 'sc.NomeSubCategoria', 'mes')
+                ->get();
+
+            // No seu Controller
+            $dados = [];
+            $resumoMensal = array_fill(1, 12, ['R' => 0, 'D' => 0]);
+
+            foreach ($movimentacoes as $movs) {
+                $tipo = $movs->TipoCategoria;
+                $cat  = $movs->NomeCategoria;
+                $sub  = $movs->NomeSubCategoria;
+                $mes  = (int)$movs->mes;
+                $valor = (float)$movs->total;
+
+                // Garante que os níveis do array existam
+                if (!isset($dados[$tipo])) $dados[$tipo] = [];
+                if (!isset($dados[$tipo][$cat])) $dados[$tipo][$cat] = [];
+                if (!isset($dados[$tipo][$cat][$sub])) $dados[$tipo][$cat][$sub] = [];
+
+                // Atribui o valor ao mês específico
+                $dados[$tipo][$cat][$sub][$mes] = $valor;
+                
+                // Soma para o total geral do mês
+                $resumoMensal[$mes][$tipo] += $valor;
+            }
+
             //echo($gastoCat);
-            //dd($gastoCat);
+            //dd($resumoMensal);
             return view('sistema.home')->with([
                 'mov'=>$mov, 
                 'movCard'=>$movCard,
@@ -243,7 +287,10 @@ class SistemaController extends Controller
                 'investimento'=>$investimento,
                 'fat' => $fat,
                 'start'=>$startOfMonth,
-                'end' => $endOfMonth
+                'end' => $endOfMonth,
+                'dados' => $dados, 
+                'resumoMensal' => $resumoMensal, 
+                'ano' =>$ano
             ]);
         }else{
             return redirect('/login')->with('msg', 'Você precisa estar logado para fazer essa operação!')->with('icon', 'error')->with('textB', 'Ok')->with('colorB', '#dc3545')->with('title', 'Erro!');
